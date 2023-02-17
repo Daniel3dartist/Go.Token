@@ -10,8 +10,9 @@ config_version=4
 
 [application]
 
-config/name="Tokenizer"
-config/icon="res://icon.png"
+config/name="Go.Token"
+run/main_scene="res://Scenes/Main.tscn"
+config/icon="res://Base_Image/Token_logo.png"
 
 [gui]
 
