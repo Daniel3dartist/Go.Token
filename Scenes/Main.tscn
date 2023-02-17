@@ -1,0 +1,106 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Base_Image/Char_Base_Image.png" type="Texture" id=1]
+[ext_resource path="res://Base_Image/Char_Base_Image_300x300p.png" type="Texture" id=2]
+[ext_resource path="res://shader/Token_Shader.gdshader" type="Shader" id=3]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.701961, 0.701961, 0.701961, 1 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 3 )
+shader_param/outline_color = Color( 1, 1, 0, 1 )
+shader_param/inner_circle = 0.45
+shader_param/outer_circle = 0.5
+shader_param/uvs_x = 1.0
+shader_param/uvs_y = 1.0
+shader_param/uvm_x = null
+shader_param/uvm_y = null
+shader_param/smoothness = 0.01
+shader_param/tex_frg_2 = ExtResource( 2 )
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.741176, 0.741176, 0.741176, 1 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Panel" type="Panel" parent="Panel/HBoxContainer"]
+margin_right = 506.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="Char_Image" type="TextureRect" parent="Panel/HBoxContainer/Panel"]
+margin_left = 4.0
+margin_top = 50.0
+margin_right = 504.0
+margin_bottom = 550.0
+rect_min_size = Vector2( 500, 500 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="VSeparator" type="VSeparator" parent="Panel/HBoxContainer"]
+margin_left = 510.0
+margin_right = 514.0
+margin_bottom = 600.0
+
+[node name="Panel2" type="Panel" parent="Panel/HBoxContainer"]
+margin_left = 518.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/Panel2/VBoxContainer"]
+margin_right = 506.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
+margin_left = 103.0
+margin_right = 403.0
+margin_bottom = 600.0
+
+[node name="Token" type="TextureRect" parent="Panel/HBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer"]
+material = SubResource( 4 )
+margin_top = 150.0
+margin_right = 300.0
+margin_bottom = 450.0
+rect_min_size = Vector2( 300, 300 )
+size_flags_horizontal = 3
+texture = ExtResource( 2 )
+stretch_mode = 4
