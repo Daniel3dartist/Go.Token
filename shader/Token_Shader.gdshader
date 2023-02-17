@@ -1,6 +1,7 @@
 shader_type canvas_item;
 uniform sampler2D tex_frg_2;
 
+
 uniform vec4 outline_color:hint_color = vec4(1.0,1.0,0.0,1.0);
 uniform float inner_circle=0.45;
 uniform float outer_circle=0.5;
@@ -34,7 +35,6 @@ void fragment() {
 	vec2 uv_offset = vec2(uvm_x, uvm_y);
 	vec4 _color= mix (texture(tex_frg_2,(UV * uv_scale) - uv_offset),outline_color,smoothstep(inner_circle-smoothness,inner_circle+smoothness,dist));
 	 COLOR= mix (_color,alpha_color,smoothstep(outer_circle-smoothness,outer_circle+smoothness,dist));
-
 
 // Output:0
 //	COLOR.rgb = n_out2p0;

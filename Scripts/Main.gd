@@ -1,14 +1,18 @@
 extends Control
 
+var BASE_PATH = 'user://'
 var is_mouse_in : bool = false
+
 onready var TexRect = $'Panel/HBoxContainer/Panel/Char_Image'
 onready var Token = $'Panel/HBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer/Token'
 onready var _Panel = $'Panel/HBoxContainer/Panel'
 
 
 func _ready():
+	var path = BASE_PATH + 'Tokens'
+	Directory.new().make_dir(path)
+#	OS.shell_open(OS.get_base_dir())
 	get_tree().connect('files_dropped', self, '_on_files_dropped')
-
 
 func _on_files_dropped(files, screen):
 	var vx = _Panel.get_global_position().x + _Panel.rect_size.x
@@ -17,7 +21,7 @@ func _on_files_dropped(files, screen):
 		var PATH = files[0]
 		print(PATH)
 		var image_name
-		image_name = PATH.split('/')
+		image_name = PATH.split('\\')
 		image_name = '/%s' % image_name[-1]
 		print('\n\nImage_name\n\n', image_name, '\n\n')
 		load_char_image(PATH)
@@ -37,6 +41,13 @@ func load_char_image(path):
 #	print('\n\nChar_Image: ', char_image, '\n\n')
 #	emit_signal('load_image_token', valid_image)
 
+#	$'Node/ViewportContainer'.visible = false
+
+func _Save_Token():
+	var vc = $'Panel/HBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer/Viewport'
+	var img = vc.get_viewport().get_texture().get_data()
+	img.flip_y()
+	img.save_png(OS.get_executable_path().get_base_dir() + '/img.png')
 
 func load_external_tex(path):
 	var tex_file = File.new()
@@ -67,3 +78,7 @@ func load_external_tex(path):
 	
 	return imgtex
 
+
+
+func _on_Save_Button_button_up():
+	_Save_Token()
