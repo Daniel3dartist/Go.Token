@@ -29,10 +29,14 @@ func _on_files_dropped(files, screen):
 
 func load_char_image(path):
 	var valid_image = load_external_tex(path)
+	var tex = Texture.new()
+	tex = valid_image
 #	char_image = valid_image
 	
 #	$'ColorRect/SheetArea/Sheet_TabContainer/Background/HBoxContainer/CenterContainer/Label'.visible = false
-	TexRect.texture = valid_image
+	TexRect.texture = tex
+	TexRect.material = null
+	$Panel/HBoxContainer/Panel/CenterContainer/Label.visible = false
 #	TexRect.material.set_shader_param('tex_frg_7' , valid_image)
 #	TexRect.material.set_shader_param('alpha', 1.000)
 	Token.material.set_shader_param('tex_frg_2' , valid_image)

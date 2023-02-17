@@ -124,15 +124,24 @@ expand = true
 stretch_mode = 6
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -62.0
+margin_top = -20.0
+margin_right = 62.0
+margin_bottom = 20.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Panel/CenterContainer"]
 margin_top = 4.0
 margin_right = 124.0
 margin_bottom = 35.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Drop your file here.
 ( JPG, PNG, GIF)"
+align = 1
+valign = 1
 
 [node name="VSeparator" type="VSeparator" parent="Panel/HBoxContainer"]
 margin_left = 510.0
