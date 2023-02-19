@@ -3,8 +3,8 @@ extends Control
 var BASE_PATH = 'user://'
 var is_mouse_in : bool = false
 
-onready var TexRect = $'Panel/HBoxContainer/Panel/Char_Image'
-onready var Token = $'Panel/HBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer/Token'
+onready var TexRect = $'Panel/HBoxContainer/Panel/CenterContainer/Char_Image'
+onready var Token = $'Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/CenterContainer/Token_TextureRect'
 onready var _Panel = $'Panel/HBoxContainer/Panel'
 
 
@@ -30,7 +30,7 @@ func _on_files_dropped(files, screen):
 func load_char_image(path):
 	var valid_image = load_external_tex(path)
 	var tex = Texture.new()
-	tex = valid_image
+	tex = valid_image 
 #	char_image = valid_image
 	
 #	$'ColorRect/SheetArea/Sheet_TabContainer/Background/HBoxContainer/CenterContainer/Label'.visible = false
@@ -48,7 +48,7 @@ func load_char_image(path):
 #	$'Node/ViewportContainer'.visible = false
 
 func _Save_Token():
-	var vc = $'Panel/HBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer/Viewport'
+	var vc = $'Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer/Viewport'
 	var img = vc.get_viewport().get_texture().get_data()
 	img.flip_y()
 	img.save_png(OS.get_executable_path().get_base_dir() + '/img.png')

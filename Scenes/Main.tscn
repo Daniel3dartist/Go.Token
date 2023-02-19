@@ -1,8 +1,12 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Base_Image/Char_Base_Image.png" type="Texture" id=1]
+[ext_resource path="res://shader/Token_Shader.gdshader" type="Shader" id=2]
+[ext_resource path="res://Base_Image/Char_Base_Image_300x300p.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Token.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/Token_TextureRect.gd" type="Script" id=6]
+[ext_resource path="res://Base_Image/Chain_Ico.png" type="Texture" id=7]
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.701961, 0.701961, 0.701961, 1 )
@@ -81,6 +85,18 @@ background_color = Color( 1, 1, 1, 0 )
 environment = SubResource( 4 )
 fallback_environment = SubResource( 6 )
 
+[sub_resource type="ShaderMaterial" id=12]
+shader = ExtResource( 2 )
+shader_param/outline_color = Color( 1, 1, 0, 1 )
+shader_param/inner_circle = 0.45
+shader_param/outer_circle = 0.5
+shader_param/uvs_x = 1.0
+shader_param/uvs_y = 1.0
+shader_param/uvm_x = 0.0
+shader_param/uvm_y = null
+shader_param/smoothness = 0.01
+shader_param/tex_frg_2 = ExtResource( 3 )
+
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -95,6 +111,8 @@ color = Color( 0.741176, 0.741176, 0.741176, 1 )
 [node name="Panel" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_styles/panel = SubResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
@@ -103,19 +121,27 @@ anchor_bottom = 1.0
 alignment = 1
 
 [node name="Panel" type="Panel" parent="Panel/HBoxContainer"]
-margin_right = 506.0
-margin_bottom = 600.0
+margin_right = 634.0
+margin_bottom = 720.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 1 )
 
-[node name="Char_Image" type="TextureRect" parent="Panel/HBoxContainer/Panel"]
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -250.0
+margin_right = 250.0
+margin_bottom = 250.0
+
+[node name="Char_Image" type="TextureRect" parent="Panel/HBoxContainer/Panel/CenterContainer"]
 material = SubResource( 11 )
-margin_left = 4.0
-margin_top = 50.0
-margin_right = 504.0
-margin_bottom = 550.0
+margin_right = 500.0
+margin_bottom = 500.0
 rect_min_size = Vector2( 500, 500 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -123,20 +149,11 @@ texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -62.0
-margin_top = -20.0
-margin_right = 62.0
-margin_bottom = 20.0
-
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Panel/CenterContainer"]
-margin_top = 4.0
-margin_right = 124.0
-margin_bottom = 35.0
+margin_left = 188.0
+margin_top = 234.0
+margin_right = 312.0
+margin_bottom = 265.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Drop your file here.
 ( JPG, PNG, GIF)"
@@ -144,60 +161,519 @@ align = 1
 valign = 1
 
 [node name="VSeparator" type="VSeparator" parent="Panel/HBoxContainer"]
-margin_left = 510.0
-margin_right = 514.0
-margin_bottom = 600.0
+margin_left = 638.0
+margin_right = 642.0
+margin_bottom = 720.0
 
 [node name="Panel2" type="Panel" parent="Panel/HBoxContainer"]
-margin_left = 518.0
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_left = 646.0
+margin_right = 1280.0
+margin_bottom = 720.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 3 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2"]
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer"]
+margin_left = 38.0
+margin_top = 152.0
+margin_right = 595.0
+margin_bottom = 568.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/Panel2/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer"]
+visible = false
+margin_top = 133.0
 margin_right = 506.0
-margin_bottom = 600.0
+margin_bottom = 467.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer"]
+margin_right = 506.0
+margin_bottom = 14.0
+
+[node name="Container" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 35.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 35, 0 )
+
+[node name="Scale" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 39.0
+margin_right = 79.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 40, 0 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Scale"
+
+[node name="x" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 83.0
+margin_right = 91.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "X"
+
+[node name="HScrollBar" type="HScrollBar" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 95.0
+margin_right = 319.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 224, 0 )
+size_flags_horizontal = 3
+
+[node name="Container2" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 323.0
+margin_right = 506.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 506.0
+margin_bottom = 318.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 83.0
+margin_right = 95.0
+margin_bottom = 300.0
+
+[node name="Container2" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="x2" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 4.0
+margin_right = 12.0
+margin_bottom = 18.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Y"
+
+[node name="VScrollBar" type="VScrollBar" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 22.0
+margin_right = 12.0
+margin_bottom = 246.0
+rect_min_size = Vector2( 0, 224 )
+size_flags_vertical = 3
+
+[node name="Container" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 250.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Container3" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 99.0
+margin_right = 99.0
+margin_bottom = 300.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 margin_left = 103.0
 margin_right = 403.0
-margin_bottom = 600.0
+margin_bottom = 300.0
 
-[node name="Token" parent="Panel/HBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer" instance=ExtResource( 5 )]
+[node name="Token" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer" instance=ExtResource( 5 )]
 visible = false
-
-[node name="ViewportContainer" type="ViewportContainer" parent="Panel/HBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer"]
-margin_top = 150.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 0.0
 margin_right = 300.0
-margin_bottom = 450.0
+margin_bottom = 300.0
 
-[node name="Viewport" type="Viewport" parent="Panel/HBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer"]
+[node name="ViewportContainer" type="ViewportContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer"]
+margin_right = 300.0
+margin_bottom = 300.0
+
+[node name="Viewport" type="Viewport" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer"]
 size = Vector2( 300, 300 )
 world = SubResource( 5 )
 transparent_bg = true
 handle_input_locally = false
 hdr = false
-render_target_update_mode = 3
+render_target_update_mode = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer/Viewport"]
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer/Viewport"]
 margin_right = 300.0
 margin_bottom = 300.0
 
-[node name="Token" parent="Panel/HBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer/Viewport/CenterContainer" instance=ExtResource( 5 )]
+[node name="Token" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer/Viewport/CenterContainer" instance=ExtResource( 5 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
 margin_top = 0.0
+margin_right = 300.0
 margin_bottom = 300.0
+
+[node name="Container2" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 407.0
+margin_right = 407.0
+margin_bottom = 300.0
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 411.0
+margin_right = 423.0
+margin_bottom = 300.0
+
+[node name="Container" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="VScrollBar" type="VScrollBar" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 54.0
+margin_right = 12.0
+margin_bottom = 296.0
+size_flags_vertical = 3
+
+[node name="Container2" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 300.0
+margin_bottom = 300.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer"]
+margin_top = 322.0
+margin_right = 506.0
+margin_bottom = 334.0
+
+[node name="Container" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 150.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 3
+
+[node name="HScrollBar" type="HScrollBar" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 154.0
+margin_right = 404.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 250, 0 )
+size_flags_horizontal = 3
+
+[node name="Container2" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 408.0
+margin_right = 506.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+
+[node name="Token2" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer"]
+margin_right = 557.0
+margin_bottom = 416.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2"]
+margin_right = 557.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Token"
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2"]
+margin_top = 34.0
+margin_right = 557.0
+margin_bottom = 416.0
+alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer"]
+margin_right = 33.0
+margin_bottom = 382.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Scale_Label" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer2"]
+margin_right = 33.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Scale"
+align = 2
+valign = 1
+
+[node name="Container" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer2"]
+margin_top = 18.0
+margin_right = 33.0
+margin_bottom = 382.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer"]
+margin_left = 37.0
+margin_right = 497.0
+margin_bottom = 382.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="X_Scale_Input" type="HBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer"]
+margin_right = 460.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Container" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/X_Scale_Input"]
+margin_bottom = 16.0
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/X_Scale_Input"]
+margin_left = 4.0
+margin_top = 1.0
+margin_right = 12.0
+margin_bottom = 15.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "X"
+align = 1
+valign = 1
+
+[node name="X_Scale_Input_HSlider" type="HSlider" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/X_Scale_Input"]
+margin_left = 16.0
+margin_right = 256.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 240, 0 )
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.1
+value = 1.0
+tick_count = 10
+
+[node name="Container2" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/X_Scale_Input"]
+margin_left = 260.0
+margin_right = 460.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer"]
+margin_top = 20.0
+margin_right = 460.0
+margin_bottom = 362.0
+alignment = 1
+
+[node name="Y_Scale_Input" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 16.0
+margin_bottom = 342.0
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input"]
+margin_right = 16.0
+margin_bottom = 14.0
+size_flags_vertical = 1
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Y"
+align = 1
+valign = 1
+
+[node name="Y_Scale_Input_VSlider" type="VSlider" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input"]
+margin_top = 18.0
+margin_right = 16.0
+margin_bottom = 258.0
+rect_min_size = Vector2( 0, 240 )
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.1
+page = -1.0
+value = 1.0
+tick_count = 10
+
+[node name="Container2" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input"]
+margin_top = 262.0
+margin_right = 16.0
+margin_bottom = 342.0
+rect_min_size = Vector2( 0, 80 )
+size_flags_horizontal = 3
+
+[node name="CheckBox" type="CheckBox" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 20.0
+margin_right = 76.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 56, 40 )
+size_flags_vertical = 0
+pressed = true
+icon = ExtResource( 7 )
+align = 1
+icon_align = 2
+
+[node name="is_checked" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/CheckBox"]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+text = "true"
+
+[node name="ViewportContainer" type="ViewportContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 80.0
+margin_right = 380.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 300, 300 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer"]
+size = Vector2( 300, 300 )
+transparent_bg = true
+handle_input_locally = false
+hdr = false
+render_target_update_mode = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer/Viewport"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Token_TextureRect" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/CenterContainer"]
+material = SubResource( 12 )
+margin_right = 300.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 300, 300 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 2
+script = ExtResource( 6 )
+
+[node name="ColorRect" type="ColorRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer"]
+margin_left = 384.0
+margin_right = 384.0
+margin_bottom = 342.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.8, 0.207843, 0.207843, 1 )
+
+[node name="Container" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 384.0
+margin_right = 440.0
+margin_bottom = 342.0
+rect_min_size = Vector2( 56, 40 )
+
+[node name="Y_Position_Input" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 444.0
+margin_right = 460.0
+margin_bottom = 342.0
+
+[node name="Container" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Position_Input"]
+margin_right = 16.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+
+[node name="Y_Position_Input_VSlider" type="VSlider" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Position_Input"]
+margin_top = 84.0
+margin_right = 16.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 0, 240 )
+size_flags_vertical = 3
+min_value = -1.0
+max_value = 0.0
+step = 0.01
+tick_count = 10
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Position_Input"]
+margin_top = 328.0
+margin_right = 16.0
+margin_bottom = 342.0
+size_flags_vertical = 1
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Y"
+align = 1
+valign = 1
+
+[node name="X_Position_Input" type="HBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer"]
+margin_top = 366.0
+margin_right = 460.0
+margin_bottom = 382.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Container" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/X_Position_Input"]
+margin_right = 200.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 80, 0 )
+size_flags_horizontal = 3
+
+[node name="X_Position_Input_HSlider" type="HSlider" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/X_Position_Input"]
+margin_left = 204.0
+margin_right = 444.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 240, 0 )
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 0.0
+step = 0.01
+tick_count = 10
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/X_Position_Input"]
+margin_left = 448.0
+margin_top = 1.0
+margin_right = 456.0
+margin_bottom = 15.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "X"
+align = 1
+valign = 1
+
+[node name="Container2" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/X_Position_Input"]
+margin_left = 460.0
+margin_right = 460.0
+margin_bottom = 16.0
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer"]
+margin_left = 501.0
+margin_right = 557.0
+margin_bottom = 382.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer3"]
+margin_right = 56.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 56, 40 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer3/VBoxContainer"]
+margin_right = 56.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 56, 35 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Ring
+Color"
+align = 1
+valign = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer3/VBoxContainer"]
+margin_top = 39.0
+margin_right = 56.0
+margin_bottom = 64.0
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer3/VBoxContainer/CenterContainer"]
+margin_left = 8.0
+margin_right = 48.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 40, 25 )
+icon_align = 1
+
+[node name="Container" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer3"]
+margin_top = 68.0
+margin_right = 56.0
+margin_bottom = 364.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Position_Label" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer3"]
+margin_top = 368.0
+margin_right = 56.0
+margin_bottom = 382.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Position"
+valign = 1
 
 [node name="Save_Button" type="Button" parent="."]
 anchor_left = 1.0
@@ -214,4 +690,9 @@ size_flags_vertical = 0
 text = "Save"
 icon_align = 1
 
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/X_Scale_Input/X_Scale_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/CenterContainer/Token_TextureRect" method="_on_X_Scale_Input_HSlider_value_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input/Y_Scale_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/CenterContainer/Token_TextureRect" method="_on_Y_Scale_Input_VSlider_value_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Position_Input/Y_Position_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/CenterContainer/Token_TextureRect" method="_on_Y_Position_Input_VSlider_value_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/X_Position_Input/X_Position_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/CenterContainer/Token_TextureRect" method="_on_X_Position_Input_HSlider_value_changed"]
+[connection signal="color_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer3/VBoxContainer/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/CenterContainer/Token_TextureRect" method="_on_ColorPickerButton_color_changed"]
 [connection signal="button_up" from="Save_Button" to="." method="_on_Save_Button_button_up"]
