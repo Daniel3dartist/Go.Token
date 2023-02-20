@@ -11,8 +11,6 @@ onready var savepanel = preload("res://Scenes/save_panel.tscn")
 
 
 func _ready():
-	var path = BASE_PATH + 'Tokens'
-	Directory.new().make_dir(path)
 #	OS.shell_open(OS.get_base_dir())
 	get_tree().connect('files_dropped', self, '_on_files_dropped')
 	init()
@@ -111,10 +109,8 @@ func _on_Save_PNG_Token_File_button_up():
 	var file_name = self.get_node("CenterContainer").get_node("save_panel/VBoxContainer/HBoxContainer2/LineEdit").text
 	var save_path
 	if file_name.substr(file_name.length() - 4, -1) == '.png':
-		print('pass')
 		pass
 	else:
-		print('add file name\n', file_name + '.png')
 		file_name = file_name + '.png'
 	save_path = BASE_PATH + '/tokens/%s' % file_name
 	_Save_Token(file_name)
