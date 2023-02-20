@@ -1,11 +1,13 @@
 extends Control
 
-var BASE_PATH = 'user://'
+var BASE_PATH = OS.get_executable_path().get_base_dir() #'user://'
 var is_mouse_in : bool = false
 
 onready var TexRect = $'Panel/HBoxContainer/Panel/CenterContainer/Char_Image'
-onready var Token = $'Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/CenterContainer/Token_TextureRect'
+onready var Token = $'Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect'
 onready var _Panel = $'Panel/HBoxContainer/Panel'
+
+onready var savepanel = preload("res://Scenes/save_panel.tscn")
 
 
 func _ready():
@@ -13,6 +15,14 @@ func _ready():
 	Directory.new().make_dir(path)
 #	OS.shell_open(OS.get_base_dir())
 	get_tree().connect('files_dropped', self, '_on_files_dropped')
+	init()
+
+
+func init():
+	var dir = Directory.new()
+	if dir.dir_exists(BASE_PATH + '/tokens') == false:
+		dir.make_dir(BASE_PATH + '/tokens')
+
 
 func _on_files_dropped(files, screen):
 	var vx = _Panel.get_global_position().x + _Panel.rect_size.x
@@ -30,28 +40,26 @@ func _on_files_dropped(files, screen):
 func load_char_image(path):
 	var valid_image = load_external_tex(path)
 	var tex = Texture.new()
-	tex = valid_image 
-#	char_image = valid_image
 	
-#	$'ColorRect/SheetArea/Sheet_TabContainer/Background/HBoxContainer/CenterContainer/Label'.visible = false
+	tex = valid_image 
 	TexRect.texture = tex
 	TexRect.material = null
 	$Panel/HBoxContainer/Panel/CenterContainer/Label.visible = false
-#	TexRect.material.set_shader_param('tex_frg_7' , valid_image)
-#	TexRect.material.set_shader_param('alpha', 1.000)
 	Token.material.set_shader_param('tex_frg_2' , valid_image)
-#	checkbox.pressed = true
-#	_Update_Save()
-#	print('\n\nChar_Image: ', char_image, '\n\n')
-#	emit_signal('load_image_token', valid_image)
 
-#	$'Node/ViewportContainer'.visible = false
 
-func _Save_Token():
-	var vc = $'Panel/HBoxContainer/Panel2/CenterContainer/VBoxContainer/Token2/HBoxContainer/VBoxContainer/HBoxContainer2/ViewportContainer/Viewport'
-	var img = vc.get_viewport().get_texture().get_data()
+func _Save_Token(save_path):
+	var viewport = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/Viewport'
+	var img = viewport.get_viewport().get_texture().get_data()
 	img.flip_y()
-	img.save_png(OS.get_executable_path().get_base_dir() + '/img.png')
+	var path = BASE_PATH + '/tokens/'
+	print(path + save_path)
+	img.save_png(str(path + save_path))
+
+
+func _Open_Dir():
+	OS.shell_open(BASE_PATH + '/tokens')
+
 
 func load_external_tex(path):
 	var tex_file = File.new()
@@ -83,6 +91,35 @@ func load_external_tex(path):
 	return imgtex
 
 
-
 func _on_Save_Button_button_up():
-	_Save_Token()
+	var path = BASE_PATH + '/tokens/token.png'
+	var save_panel = savepanel.instance()
+	save_panel.get_node('VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/Viewport/CenterContainer/Token_TextureRect').material = Token.material
+	self.get_node("CenterContainer").visible = true
+	self.get_node("CenterContainer").add_child(save_panel)
+	self.get_node("CenterContainer").get_node("save_panel/VBoxContainer/HBoxContainer2/LineEdit").text = 'token'
+	save_panel.get_node("VBoxContainer/HBoxContainer2/Save_PNG_Token_File_button").connect("button_up", self, "_on_Save_PNG_Token_File_button_up")
+	save_panel.get_node("VBoxContainer/HBoxContainer2/Dir_path").connect("button_up", self, "_on_Dir_path_button_up")
+	#_Save_Token()
+
+
+func _on_Dir_button_up():
+	_Open_Dir()
+
+
+func _on_Save_PNG_Token_File_button_up():
+	var file_name = self.get_node("CenterContainer").get_node("save_panel/VBoxContainer/HBoxContainer2/LineEdit").text
+	var save_path
+	if file_name.substr(file_name.length() - 4, -1) == '.png':
+		print('pass')
+		pass
+	else:
+		print('add file name\n', file_name + '.png')
+		file_name = file_name + '.png'
+	save_path = BASE_PATH + '/tokens/%s' % file_name
+	_Save_Token(file_name)
+
+
+func _on_Dir_path_button_up():
+	_Open_Dir()
+

@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scripts/save_panel.gd" type="Script" id=1]
-[ext_resource path="res://shader/Token_Shader.gdshader" type="Shader" id=2]
-[ext_resource path="res://Base_Image/Char_Base_Image_300x300p.png" type="Texture" id=3]
+[ext_resource path="res://shader/Token_Shader.gdshader" type="Shader" id=1]
+[ext_resource path="res://Base_Image/Char_Base_Image_300x300p.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/save_panel.gd" type="Script" id=3]
+[ext_resource path="res://Base_Image/open-folder-outline-icon.png" type="Texture" id=4]
+[ext_resource path="res://Base_Image/save-icon.png" type="Texture" id=5]
 
-[sub_resource type="ShaderMaterial" id=19]
-shader = ExtResource( 2 )
+[sub_resource type="ShaderMaterial" id=12]
+shader = ExtResource( 1 )
 shader_param/outline_color = Color( 1, 1, 0, 1 )
 shader_param/inner_circle = 0.45
 shader_param/outer_circle = 0.5
@@ -14,19 +16,19 @@ shader_param/uvs_y = 1.0
 shader_param/uvm_x = 0.0
 shader_param/uvm_y = null
 shader_param/smoothness = 0.01
-shader_param/tex_frg_2 = ExtResource( 3 )
+shader_param/tex_frg_2 = ExtResource( 2 )
 
 [node name="save_panel" type="Panel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -250.0
+margin_left = -400.0
 margin_top = -250.0
-margin_right = 250.0
+margin_right = 100.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 500, 500 )
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -41,9 +43,12 @@ size_flags_horizontal = 3
 color = Color( 0.384314, 0.552941, 0.666667, 1 )
 
 [node name="exit" type="Button" parent="VBoxContainer/ColorRect"]
-margin_left = 480.0
-margin_right = 500.0
-margin_bottom = 20.0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -20.0
 text = "X"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
@@ -54,19 +59,19 @@ margin_bottom = 24.0
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 28.0
 margin_right = 500.0
-margin_bottom = 472.0
+margin_bottom = 466.0
 size_flags_vertical = 3
 alignment = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 100.0
 margin_right = 400.0
-margin_bottom = 444.0
+margin_bottom = 438.0
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="VBoxContainer/HBoxContainer/CenterContainer"]
-margin_top = 72.0
+margin_top = 69.0
 margin_right = 300.0
-margin_bottom = 372.0
+margin_bottom = 369.0
 rect_min_size = Vector2( 300, 300 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -74,42 +79,65 @@ stretch = true
 
 [node name="Viewport" type="Viewport" parent="VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2"]
 size = Vector2( 300, 300 )
-size_override_stretch = true
 transparent_bg = true
 handle_input_locally = false
 hdr = false
 render_target_update_mode = 3
-gui_disable_input = true
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/Viewport"]
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Token_TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/Viewport/CenterContainer"]
-material = SubResource( 19 )
+material = SubResource( 12 )
 margin_right = 300.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 300, 300 )
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 expand = true
 stretch_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 476.0
+margin_top = 470.0
 margin_right = 500.0
 margin_bottom = 500.0
+rect_min_size = Vector2( 0, 30 )
 size_flags_vertical = 0
 alignment = 1
 
+[node name="File_name" type="Label" parent="VBoxContainer/HBoxContainer2"]
+margin_top = 8.0
+margin_right = 69.0
+margin_bottom = 22.0
+text = "File Name:"
+
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
-margin_right = 455.0
-margin_bottom = 24.0
+margin_left = 73.0
+margin_right = 391.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 
-[node name="Save_PNG_Token_File" type="Button" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 459.0
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 395.0
+margin_top = 8.0
+margin_right = 422.0
+margin_bottom = 22.0
+text = ".png"
+
+[node name="Save_PNG_Token_File_button" type="Button" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 426.0
+margin_right = 456.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+icon = ExtResource( 5 )
+expand_icon = true
+
+[node name="Dir_path" type="Button" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 460.0
 margin_right = 500.0
-margin_bottom = 24.0
-text = "save"
+margin_bottom = 30.0
+rect_min_size = Vector2( 40, 30 )
+icon = ExtResource( 4 )
+expand_icon = true
 
 [connection signal="button_up" from="VBoxContainer/ColorRect/exit" to="." method="_on_exit_button_up"]

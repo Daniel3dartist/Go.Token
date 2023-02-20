@@ -1,17 +1,15 @@
 extends TextureRect
 
-onready var check_box = self.get_parent().get_parent().get_parent().get_parent().get_node("CheckBox")
-
+onready var check_box = self.get_parent().get_parent().get_node("CheckBox")
+onready var color_picker = self.get_parent().get_parent().get_parent().get_parent().get_node("VBoxContainer3/VBoxContainer/CenterContainer/ColorPickerButton")
 
 func _ready():
 	var base_color = Color('#596b6f')
-	self.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_node("VBoxContainer3/VBoxContainer/CenterContainer/ColorPickerButton").color = base_color
+	color_picker.color = base_color
 	self.material.set_shader_param('outline_color' , base_color)
 
-
 func _on_X_Scale_Input_HSlider_value_changed(value):
-	var y_scale = self.get_parent().get_parent().get_parent().get_parent().get_node("Y_Position_Input/Y_Position_Input_VSlider")
-	#self.get_parent().get_parent().get_node("HBoxContainer2/Y_Scale_Input/Y_Scale_Input_VSlider")
+	var y_scale = self.get_parent().get_parent().get_node("Y_Scale_Input/Y_Scale_Input_VSlider")
 	
 	self.material.set_shader_param('uvs_x' , value)
 	if check_box.pressed == true:
@@ -20,7 +18,7 @@ func _on_X_Scale_Input_HSlider_value_changed(value):
 
 
 func _on_Y_Scale_Input_VSlider_value_changed(value):
-	var x_scale = self.get_parent().get_parent().get_parent().get_parent().get_parent().get_node("X_Scale_Input/X_Scale_Input_HSlider")
+	var x_scale = self.get_parent().get_parent().get_parent().get_node("X_Scale_Input/X_Scale_Input_HSlider")
 	self.material.set_shader_param('uvs_y' , value)
 
 	if check_box.pressed == true:
