@@ -478,7 +478,16 @@ rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
 color = Color( 0.33017, 0.320709, 0.363281, 1 )
 
-[node name="Label" type="Label" parent="ColorRect"]
+[node name="Version" type="Label" parent="ColorRect"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 10.0
+margin_top = -7.0
+margin_right = 96.0
+margin_bottom = 7.0
+text = " v_0.0.0.1"
+
+[node name="MIT_Author" type="Label" parent="ColorRect"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -496,12 +505,15 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -118.0
+margin_left = -113.0
 margin_top = -30.0
-rect_min_size = Vector2( 0, 30 )
+margin_right = -10.0
+rect_min_size = Vector2( 95, 30 )
+alignment = 2
 
 [node name="Save_Button" type="Button" parent="ColorRect/HBoxContainer"]
-margin_right = 40.0
+margin_left = 9.0
+margin_right = 49.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 40, 30 )
 size_flags_horizontal = 0
@@ -511,8 +523,8 @@ icon_align = 1
 expand_icon = true
 
 [node name="Dir" type="Button" parent="ColorRect/HBoxContainer"]
-margin_left = 44.0
-margin_right = 94.0
+margin_left = 53.0
+margin_right = 103.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 50, 30 )
 size_flags_horizontal = 0

@@ -1,6 +1,8 @@
 extends Control
 
+
 var BASE_PATH = OS.get_executable_path().get_base_dir() #'user://'
+var is_index = OS.get_executable_path()
 var is_mouse_in : bool = false
 
 onready var TexRect = $'Panel/HBoxContainer/Panel/CenterContainer/Char_Image'
@@ -9,9 +11,14 @@ onready var _Panel = $'Panel/HBoxContainer/Panel'
 
 onready var savepanel = preload("res://Scenes/save_panel.tscn")
 
-
+#tmp_js_export
 func _ready():
-#	OS.shell_open(OS.get_base_dir())
+	var dir_open = $'ColorRect/HBoxContainer/Dir'
+	if is_index == 'index':
+		dir_open.visible = false
+	else:
+		dir_open.visible = true
+	
 	get_tree().connect('files_dropped', self, '_on_files_dropped')
 	init()
 
@@ -53,6 +60,11 @@ func _Save_Token(save_path):
 	var path = BASE_PATH + '/tokens/'
 	print(path + save_path)
 	img.save_png(str(path + save_path))
+	if is_index != 'index':
+		img.save_png(str(path + save_path))
+	else:
+		var buf = img.save_png_to_buffer()
+		JavaScript.download_buffer(buf, save_path)
 
 
 func _Open_Dir():
