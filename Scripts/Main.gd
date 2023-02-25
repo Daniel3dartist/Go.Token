@@ -2,8 +2,10 @@ extends Control
 
 
 var BASE_PATH = OS.get_executable_path().get_base_dir() #'user://'
-var is_index = OS.get_executable_path()
+var platform = OS.get_name()
 var is_mouse_in : bool = false
+
+var app_name = 'org.godotengine.gotoken'
 
 onready var TexRect = $'Panel/HBoxContainer/Panel/CenterContainer/Char_Image'
 onready var Token = $'Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect'
@@ -13,12 +15,10 @@ onready var savepanel = preload("res://Scenes/save_panel.tscn")
 
 #tmp_js_export
 func _ready():
-	var dir_open = $'ColorRect/HBoxContainer/Dir'
-	if is_index == 'index':
-		dir_open.visible = false
-	else:
-		dir_open.visible = true
-	
+	if platform == 'Android':
+		BASE_PATH = 'Pictures'
+	$'Label'.text = 'Base: %s\nSecond: %s' % [BASE_PATH, platform]
+	var dir_open = $'ColorRect/HBoxContainer/Dir'	
 	get_tree().connect('files_dropped', self, '_on_files_dropped')
 	init()
 
@@ -54,17 +54,28 @@ func load_char_image(path):
 
 
 func _Save_Token(save_path):
+	$Label.text = platform
 	var viewport = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/Viewport'
 	var img = viewport.get_viewport().get_texture().get_data()
 	img.flip_y()
 	var path = BASE_PATH + '/tokens/'
 	print(path + save_path)
 	img.save_png(str(path + save_path))
-	if is_index != 'index':
-		img.save_png(str(path + save_path))
-	else:
+	if platform == 'HTML5':
 		var buf = img.save_png_to_buffer()
 		JavaScript.download_buffer(buf, save_path)
+	
+	elif platform == 'Android':
+#		var mobile_path = 'sdcard/Android/data/%s/files/%s' % [app_name, 'tokens']
+		var mobile_path = '%s/tokens' % BASE_PATH
+		var dir = Directory.new()
+#		if dir.dir_exists(mobile_path) == false:
+#			$Label.text = 'false dir'
+#			dir.make_dir(mobile_path)
+		img.save_png(str(BASE_PATH + '/%s' % save_path))
+		OS.shell_open(mobile_path)
+	else:
+		img.save_png(str(path + save_path))
 
 
 func _Open_Dir():
