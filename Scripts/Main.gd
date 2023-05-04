@@ -3,7 +3,7 @@ extends Control
 
 var BASE_PATH = OS.get_executable_path().get_base_dir() #'user://'
 var platform = OS.get_name()
-var is_mouse_in : bool = false
+#var is_mouse_in : bool = false
 
 var app_name = 'org.godotengine.gotoken'
 
