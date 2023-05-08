@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Base_Image/Char_Base_Image.png" type="Texture" id=1]
 [ext_resource path="res://shader/Token_Shader.gdshader" type="Shader" id=2]
@@ -78,18 +78,28 @@ shader = SubResource( 16 )
 [sub_resource type="ShaderMaterial" id=12]
 shader = ExtResource( 2 )
 shader_param/outline_color = Color( 1, 1, 0, 1 )
-shader_param/inner_circle = 0.448
-shader_param/outer_circle = 0.466
-shader_param/shadow_color = Color( 0, 0, 0, 1 )
-shader_param/inner_shadow = 0.442
-shader_param/outer_shadow = 0.434
+shader_param/inner_circle = 0.451
+shader_param/outer_circle = 0.49
+shader_param/shadow_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+shader_param/inner_shadow = 0.48
+shader_param/outer_shadow = 0.49
 shader_param/uvs_x = 1.0
 shader_param/uvs_y = 1.0
 shader_param/uvm_x = 0.0
 shader_param/uvm_y = null
 shader_param/smoothness = 0.0
-shader_param/shadow_smoothness = 0.025
+shader_param/shadow_smoothness = 0.0
 shader_param/tex_frg_2 = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 0.480483, 0.466164, 0.544922, 1 )
+corner_radius_top_left = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id=18]
+bg_color = Color( 0.480483, 0.466164, 0.544922, 1 )
+corner_radius_top_left = 15
+corner_radius_top_right = 15
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -166,9 +176,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Token" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer"]
-margin_left = 29.0
+margin_left = 40.0
 margin_top = 152.0
-margin_right = 604.0
+margin_right = 593.0
 margin_bottom = 568.0
 mouse_filter = 0
 size_flags_horizontal = 0
@@ -176,7 +186,7 @@ size_flags_vertical = 0
 alignment = 1
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token"]
-margin_right = 575.0
+margin_right = 553.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -186,7 +196,7 @@ valign = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token"]
 margin_top = 34.0
-margin_right = 575.0
+margin_right = 553.0
 margin_bottom = 416.0
 mouse_filter = 0
 alignment = 1
@@ -418,12 +428,13 @@ margin_bottom = 16.0
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer"]
 margin_left = 501.0
-margin_right = 575.0
+margin_right = 553.0
 margin_bottom = 382.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3"]
+visible = false
 margin_right = 56.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 56, 40 )
@@ -453,9 +464,9 @@ rect_min_size = Vector2( 40, 25 )
 icon_align = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3"]
-margin_top = 68.0
+visible = false
 margin_right = 74.0
-margin_bottom = 131.0
+margin_bottom = 63.0
 rect_min_size = Vector2( 56, 40 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -486,11 +497,12 @@ color = Color( 0.4, 0.392157, 0.435294, 1 )
 [node name="SpinBox" type="SpinBox" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3/VBoxContainer2/CenterContainer"]
 margin_right = 74.0
 margin_bottom = 24.0
-max_value = 1.0
-step = 0.01
+max_value = 50.0
+value = 5.0
 align = 1
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3"]
+visible = false
 margin_top = 135.0
 margin_right = 74.0
 margin_bottom = 198.0
@@ -529,19 +541,306 @@ step = 0.01
 align = 1
 
 [node name="Container" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3"]
-margin_top = 202.0
-margin_right = 74.0
+margin_right = 52.0
 margin_bottom = 364.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Position_Label" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3"]
 margin_top = 368.0
-margin_right = 74.0
+margin_right = 52.0
 margin_bottom = 382.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Position"
 valign = 1
+
+[node name="PanelV" type="Panel" parent="Panel/HBoxContainer/Panel2"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -96.0
+margin_top = 56.0
+margin_right = -6.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 90, 250 )
+custom_styles/panel = SubResource( 17 )
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/PanelV"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -38.0
+margin_top = -115.0
+margin_right = 38.0
+margin_bottom = 115.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer"]
+margin_right = 76.0
+margin_bottom = 230.0
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer"]
+margin_right = 74.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 74, 63 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer4"]
+margin_right = 74.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 56, 35 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Ring
+Color"
+align = 1
+valign = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer4"]
+margin_top = 39.0
+margin_right = 74.0
+margin_bottom = 64.0
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer4/CenterContainer"]
+margin_right = 74.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 74, 25 )
+icon_align = 1
+
+[node name="HSeparator" type="HSeparator" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer"]
+margin_top = 68.0
+margin_right = 76.0
+margin_bottom = 72.0
+
+[node name="VBoxContainer5" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer"]
+margin_top = 76.0
+margin_right = 74.0
+margin_bottom = 139.0
+rect_min_size = Vector2( 56, 40 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer5"]
+margin_right = 74.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 56, 35 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Ring
+size"
+align = 1
+valign = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer5"]
+margin_top = 39.0
+margin_right = 74.0
+margin_bottom = 63.0
+
+[node name="ColorRect" type="ColorRect" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer5/CenterContainer"]
+margin_right = 74.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 74, 24 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.4, 0.392157, 0.435294, 1 )
+
+[node name="SpinBox" type="SpinBox" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer5/CenterContainer"]
+margin_right = 74.0
+margin_bottom = 24.0
+max_value = 50.0
+value = 5.0
+align = 1
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer"]
+margin_top = 143.0
+margin_right = 76.0
+margin_bottom = 147.0
+
+[node name="VBoxContainer6" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer"]
+margin_top = 151.0
+margin_right = 76.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 56, 40 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer6"]
+margin_right = 76.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 56, 35 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Outline"
+align = 1
+valign = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer6"]
+margin_top = 39.0
+margin_right = 76.0
+margin_bottom = 79.0
+
+[node name="CheckButton" type="CheckButton" parent="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer6/CenterContainer"]
+margin_right = 76.0
+margin_bottom = 40.0
+align = 1
+icon_align = 1
+
+[node name="PanelH" type="Panel" parent="Panel/HBoxContainer/Panel2"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -125.0
+margin_top = -130.0
+margin_right = 145.0
+margin_bottom = -30.0
+rect_min_size = Vector2( 270, 100 )
+custom_styles/panel = SubResource( 18 )
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/PanelH"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -135.0
+margin_top = -40.0
+margin_right = 135.0
+margin_bottom = 53.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer"]
+margin_left = 11.0
+margin_top = 7.0
+margin_right = 259.0
+margin_bottom = 86.0
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer"]
+margin_right = 74.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 74, 63 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer4"]
+margin_right = 74.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 56, 35 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Ring
+Color"
+align = 1
+valign = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer4"]
+margin_top = 39.0
+margin_right = 74.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer4/CenterContainer"]
+margin_top = 7.0
+margin_right = 74.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 74, 25 )
+icon_align = 1
+
+[node name="VSeparator" type="VSeparator" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer"]
+margin_left = 78.0
+margin_right = 82.0
+margin_bottom = 79.0
+
+[node name="VBoxContainer5" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer"]
+margin_left = 86.0
+margin_right = 160.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 56, 40 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer5"]
+margin_right = 74.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 56, 35 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Ring
+size"
+align = 1
+valign = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer5"]
+margin_top = 39.0
+margin_right = 74.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="ColorRect" type="ColorRect" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer5/CenterContainer"]
+margin_top = 8.0
+margin_right = 74.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 74, 24 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.4, 0.392157, 0.435294, 1 )
+
+[node name="SpinBox" type="SpinBox" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer5/CenterContainer"]
+margin_top = 8.0
+margin_right = 74.0
+margin_bottom = 32.0
+max_value = 50.0
+value = 5.0
+align = 1
+
+[node name="VSeparator2" type="VSeparator" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer"]
+margin_left = 164.0
+margin_right = 168.0
+margin_bottom = 79.0
+
+[node name="VBoxContainer6" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer"]
+margin_left = 172.0
+margin_right = 248.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 56, 40 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6"]
+margin_right = 76.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 56, 35 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Outline"
+align = 1
+valign = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6"]
+margin_top = 39.0
+margin_right = 76.0
+margin_bottom = 79.0
+
+[node name="CheckButton" type="CheckButton" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6/CenterContainer"]
+margin_right = 76.0
+margin_bottom = 40.0
+align = 1
+icon_align = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer"]
+visible = false
+margin_left = 133.0
+margin_top = 40.0
+margin_right = 136.0
+margin_bottom = 52.0
+
+[node name="HSeparator" type="HSeparator" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/VBoxContainer"]
+margin_right = 3.0
+margin_bottom = 4.0
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/VBoxContainer"]
+margin_top = 8.0
+margin_right = 3.0
+margin_bottom = 12.0
 
 [node name="ColorRect3" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -578,7 +877,7 @@ margin_left = 10.0
 margin_top = -7.0
 margin_right = 96.0
 margin_bottom = 7.0
-text = " v_0.0.0.1"
+text = " v_0.0.0.2"
 
 [node name="MIT_Author" type="Label" parent="ColorRect"]
 anchor_left = 0.5
@@ -645,5 +944,12 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Position_Input/Y_Position_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_Y_Position_Input_VSlider_value_changed"]
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Position_Input/X_Position_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_X_Position_Input_HSlider_value_changed"]
 [connection signal="color_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3/VBoxContainer/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_ColorPickerButton_color_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3/VBoxContainer2/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_RingSize_value_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3/VBoxContainer3/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_ShadowSize_value_changed"]
+[connection signal="color_changed" from="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer4/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_ColorPickerButton_color_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer5/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_RingSize_value_changed"]
+[connection signal="color_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer4/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_ColorPickerButton_color_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer5/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_RingSize_value_changed"]
+[connection signal="toggled" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6/CenterContainer/CheckButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_CheckButton_Outline_toggled"]
 [connection signal="button_up" from="ColorRect/HBoxContainer/Save_Button" to="." method="_on_Save_Button_button_up"]
 [connection signal="button_up" from="ColorRect/HBoxContainer/Dir" to="." method="_on_Dir_button_up"]

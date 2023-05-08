@@ -12,11 +12,15 @@ shader = ExtResource( 1 )
 shader_param/outline_color = Color( 1, 1, 0, 1 )
 shader_param/inner_circle = 0.45
 shader_param/outer_circle = 0.5
+shader_param/shadow_color = Color( 0, 0, 0, 1 )
+shader_param/inner_shadow = 0.35
+shader_param/outer_shadow = 0.6
 shader_param/uvs_x = 1.0
 shader_param/uvs_y = 1.0
 shader_param/uvm_x = 0.0
 shader_param/uvm_y = null
 shader_param/smoothness = 0.01
+shader_param/shadow_smoothness = 0.01
 shader_param/tex_frg_2 = ExtResource( 2 )
 
 [node name="save_panel" type="Panel"]
@@ -24,12 +28,27 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -400.0
+margin_left = -250.0
 margin_top = -250.0
-margin_right = 100.0
+margin_right = 250.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 500, 500 )
 script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -31.0
+margin_bottom = -1.0
+rect_min_size = Vector2( 0, 30 )
+color = Color( 0.145098, 0.145098, 0.164706, 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
