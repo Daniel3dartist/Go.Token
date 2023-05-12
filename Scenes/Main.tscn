@@ -148,13 +148,13 @@ expand = true
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Panel/CenterContainer"]
-margin_left = 188.0
+margin_left = 157.0
 margin_top = 234.0
-margin_right = 312.0
+margin_right = 342.0
 margin_bottom = 265.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Drop your file here.
-( JPG, PNG, GIF)"
+( JPG, PNG, WEBP, TGA, BMP)"
 align = 1
 valign = 1
 
@@ -314,6 +314,7 @@ pressed = true
 icon = ExtResource( 7 )
 align = 1
 icon_align = 2
+expand_icon = true
 
 [node name="is_checked" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CheckBox"]
 visible = false
