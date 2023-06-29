@@ -1,11 +1,11 @@
 shader_type canvas_item;
 uniform sampler2D tex_frg_2;
 
-uniform vec4 outline_color:hint_color = vec4(1.0, 1.0, 0.0, 1.0);
+uniform vec4 outline_color:source_color = vec4(1.0, 1.0, 0.0, 1.0);
 uniform float inner_circle = 0.45;
 uniform float outer_circle = 0.5;
 
-uniform vec4 shadow_color:hint_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform vec4 shadow_color:source_color = vec4(0.0, 0.0, 0.0, 1.0);
 uniform float inner_shadow = 0.35;
 uniform float outer_shadow = 0.6;
 

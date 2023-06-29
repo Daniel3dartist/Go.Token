@@ -1,165 +1,158 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=3 uid="uid://b5sos2lypm5lk"]
 
-[ext_resource path="res://shader/Token_Shader.gdshader" type="Shader" id=1]
-[ext_resource path="res://Base_Image/Char_Base_Image_300x300p.png" type="Texture" id=2]
-[ext_resource path="res://Scripts/save_panel.gd" type="Script" id=3]
-[ext_resource path="res://Base_Image/open-folder-outline-icon.png" type="Texture" id=4]
-[ext_resource path="res://Base_Image/save-icon.png" type="Texture" id=5]
-[ext_resource path="res://Scripts/Save_PNG_Token_File_button.gd" type="Script" id=6]
+[ext_resource type="Shader" path="res://shader/Token_Shader.gdshader" id="1"]
+[ext_resource type="Texture2D" uid="uid://bwhiplm3iggjp" path="res://Base_Image/Char_Base_Image_300x300p.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dq0vb21pssdrl" path="res://Base_Image/close-line-icon.png" id="2_m5t0k"]
+[ext_resource type="Script" path="res://Scripts/save_panel.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://rs0trjsrfmjp" path="res://Base_Image/open-folder-outline-icon.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bndik2sxctp8y" path="res://Base_Image/save-icon.png" id="5"]
+[ext_resource type="Script" path="res://Scripts/Save_PNG_Token_File_button.gd" id="6"]
 
-[sub_resource type="ShaderMaterial" id=12]
-shader = ExtResource( 1 )
-shader_param/outline_color = Color( 1, 1, 0, 1 )
-shader_param/inner_circle = 0.45
-shader_param/outer_circle = 0.5
-shader_param/shadow_color = Color( 0, 0, 0, 1 )
-shader_param/inner_shadow = 0.35
-shader_param/outer_shadow = 0.6
-shader_param/uvs_x = 1.0
-shader_param/uvs_y = 1.0
-shader_param/uvm_x = 0.0
-shader_param/uvm_y = null
-shader_param/smoothness = 0.01
-shader_param/shadow_smoothness = 0.01
-shader_param/tex_frg_2 = ExtResource( 2 )
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxmmy"]
+bg_color = Color(0.207843, 0.207843, 0.207843, 1)
+
+[sub_resource type="ShaderMaterial" id="12"]
+shader = ExtResource("1")
+shader_parameter/outline_color = Color(1, 1, 0, 1)
+shader_parameter/inner_circle = 0.45
+shader_parameter/outer_circle = 0.5
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/inner_shadow = 0.35
+shader_parameter/outer_shadow = 0.6
+shader_parameter/uvs_x = 1.0
+shader_parameter/uvs_y = 1.0
+shader_parameter/uvm_x = 0.0
+shader_parameter/uvm_y = null
+shader_parameter/smoothness = 0.01
+shader_parameter/shadow_smoothness = 0.01
+shader_parameter/tex_frg_2 = ExtResource("2")
 
 [node name="save_panel" type="Panel"]
+custom_minimum_size = Vector2(500, 500)
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -250.0
-margin_top = -250.0
-margin_right = 250.0
-margin_bottom = 250.0
-rect_min_size = Vector2( 500, 500 )
-script = ExtResource( 3 )
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_sxmmy")
+script = ExtResource("3")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -31.0
-margin_bottom = -1.0
-rect_min_size = Vector2( 0, 30 )
-color = Color( 0.145098, 0.145098, 0.164706, 1 )
+offset_top = -31.0
+offset_bottom = -1.0
+color = Color(0.145098, 0.145098, 0.164706, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer"]
-margin_right = 500.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 0, 20 )
-mouse_default_cursor_shape = 13
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
 size_flags_horizontal = 3
-color = Color( 0.384314, 0.552941, 0.666667, 1 )
+mouse_default_cursor_shape = 13
+color = Color(0.384314, 0.552941, 0.666667, 1)
 
 [node name="exit" type="Button" parent="VBoxContainer/ColorRect"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 1
+anchors_preset = 6
 anchor_left = 1.0
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -20.0
-margin_top = -20.0
-text = "X"
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -11.0
+offset_bottom = 11.0
+grow_horizontal = 0
+grow_vertical = 2
+icon = ExtResource("2_m5t0k")
+icon_alignment = 1
+expand_icon = true
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 500.0
-margin_bottom = 24.0
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 28.0
-margin_right = 500.0
-margin_bottom = 466.0
+layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer"]
-margin_left = 100.0
-margin_right = 400.0
-margin_bottom = 438.0
+layout_mode = 2
 
-[node name="ViewportContainer2" type="ViewportContainer" parent="VBoxContainer/HBoxContainer/CenterContainer"]
-margin_top = 69.0
-margin_right = 300.0
-margin_bottom = 369.0
-rect_min_size = Vector2( 300, 300 )
+[node name="ViewportContainer2" type="SubViewportContainer" parent="VBoxContainer/HBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 stretch = true
 
-[node name="Viewport" type="Viewport" parent="VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2"]
-size = Vector2( 300, 300 )
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2"]
 transparent_bg = true
 handle_input_locally = false
-hdr = false
-render_target_update_mode = 3
+size = Vector2i(300, 300)
+render_target_update_mode = 4
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/Viewport"]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Token_TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/Viewport/CenterContainer"]
-material = SubResource( 12 )
-margin_right = 300.0
-margin_bottom = 300.0
-rect_min_size = Vector2( 300, 300 )
-texture = ExtResource( 2 )
-expand = true
+[node name="Token_TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport/CenterContainer"]
+material = SubResource("12")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("2")
+expand_mode = 1
 stretch_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 470.0
-margin_right = 500.0
-margin_bottom = 500.0
-rect_min_size = Vector2( 0, 30 )
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
 size_flags_vertical = 0
 alignment = 1
 
 [node name="File_name" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_top = 8.0
-margin_right = 69.0
-margin_bottom = 22.0
+layout_mode = 2
 text = "File Name:"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 73.0
-margin_right = 391.0
-margin_bottom = 30.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 395.0
-margin_top = 8.0
-margin_right = 422.0
-margin_bottom = 22.0
+layout_mode = 2
 text = ".png"
 
 [node name="Save_PNG_Token_File_button" type="Button" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 426.0
-margin_right = 456.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-icon = ExtResource( 5 )
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+icon = ExtResource("5")
 expand_icon = true
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="Dir_path" type="Button" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 460.0
-margin_right = 500.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 40, 30 )
-icon = ExtResource( 4 )
+custom_minimum_size = Vector2(40, 30)
+layout_mode = 2
+icon = ExtResource("4")
 expand_icon = true
 
 [connection signal="mouse_entered" from="VBoxContainer/ColorRect" to="." method="_on_ColorRect_mouse_entered"]

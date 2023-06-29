@@ -15,8 +15,8 @@ func _ready():
 
 func _input(event):
 	# Drag-and-drop sheet
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
-		off_set = rect_position - get_global_mouse_position()
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		off_set = position - get_global_mouse_position()
 		if is_block == false:
 			print('Is mouse position\n')
 #			set_default_cursor_shape(13)
@@ -28,7 +28,7 @@ func _process(delta):
 	var mouse = get_global_mouse_position()
 	if dragging == true and get_viewport().get_mouse_position().y > 0.0:
 		var view = get_viewport().get_mouse_position()
-		rect_position = view + off_set
+		position = view + off_set
 
 
 func _on_exit_button_up():
