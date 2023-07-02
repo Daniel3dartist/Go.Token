@@ -1,12 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://bvh25fep7v8m7"]
+[gd_scene load_steps=22 format=3 uid="uid://bvh25fep7v8m7"]
 
 [ext_resource type="Texture2D" uid="uid://l6fjq0aoscvs" path="res://Base_Image/Char_Base_Image.png" id="1"]
 [ext_resource type="Shader" path="res://shader/Token_Shader.gdshader" id="2"]
 [ext_resource type="Texture2D" uid="uid://bwhiplm3iggjp" path="res://Base_Image/Char_Base_Image_300x300p.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://du40a58fx6fw8" path="res://Base_Image/link-icon_32.webp" id="3_xeieg"]
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="4"]
+[ext_resource type="Texture2D" uid="uid://cwdgu1k1dxasp" path="res://Base_Image/broken-link-icon_32.png" id="4_lg1ei"]
 [ext_resource type="Texture2D" uid="uid://rs0trjsrfmjp" path="res://Base_Image/open-folder-outline-icon.png" id="5"]
 [ext_resource type="Script" path="res://Scripts/Token_TextureRect.gd" id="6"]
-[ext_resource type="Texture2D" uid="uid://fwjdyr4f4dbu" path="res://Base_Image/Chain_Ico.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://bndik2sxctp8y" path="res://Base_Image/save-icon.png" id="8"]
 [ext_resource type="Script" path="res://Scripts/Save_Button.gd" id="9"]
 
@@ -270,11 +271,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="CheckBox" type="CheckBox" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(56, 40)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 0
-icon = ExtResource("7")
-icon_alignment = 2
+theme_override_icons/checked = ExtResource("3_xeieg")
+theme_override_icons/unchecked = ExtResource("4_lg1ei")
+button_pressed = true
+flat = true
+alignment = 1
+icon_alignment = 1
 expand_icon = true
 
 [node name="is_checked" type="Label" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CheckBox"]
@@ -284,20 +289,14 @@ offset_right = 40.0
 offset_bottom = 14.0
 text = "true"
 
+[node name="Container2" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
 [node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 
 [node name="Token_TextureRect" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
-material = SubResource("12")
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-texture = ExtResource("3")
-expand_mode = 1
-stretch_mode = 2
-script = ExtResource("6")
-
-[node name="Token_TextureRect2" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
-visible = false
 material = SubResource("12")
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
@@ -770,21 +769,6 @@ size_flags_vertical = 0
 icon = ExtResource("5")
 icon_alignment = 1
 expand_icon = true
-
-[node name="CenterContainer" type="CenterContainer" parent="."]
-visible = false
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Label" type="Label" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 296.0
-offset_top = 128.0
-offset_right = 336.0
-offset_bottom = 142.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Scale_Input/X_Scale_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_X_Scale_Input_HSlider_value_changed"]
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input/Y_Scale_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_Y_Scale_Input_VSlider_value_changed"]

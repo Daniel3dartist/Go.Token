@@ -3,7 +3,6 @@ extends Control
 
 var BASE_PATH = OS.get_executable_path().get_base_dir() #'user://'
 var platform = OS.get_name()
-#var is_mouse_in : bool = false
 
 var app_name = 'org.godotengine.gotoken'
 
@@ -17,7 +16,6 @@ var app_name = 'org.godotengine.gotoken'
 func _ready():
 	if platform == 'Android':
 		BASE_PATH = 'Pictures'
-	$'Label'.text = 'Base: %s\nSecond: %s' % [BASE_PATH, platform]
 	var dir_open = $'ColorRect/HBoxContainer/Dir'	
 	get_tree().get_root().connect("files_dropped", Callable(self, "_on_files_dropped"))
 	init()
@@ -65,7 +63,7 @@ func _Save_Token(save_path):
 	var path = BASE_PATH + '/tokens/'
 	print(path + save_path)
 	img.save_png(str(path + save_path))
-	if platform == 'HTML5':
+	if platform == 'Web':
 		var buf = img.save_png_to_buffer()
 		JavaScriptBridge.download_buffer(buf, save_path)
 	

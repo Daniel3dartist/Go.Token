@@ -1,13 +1,13 @@
 extends Panel
 
-var is_index = OS.get_executable_path()
+var platform = OS.get_name()
 var is_block : bool = false
 var dragging: bool = false
 var off_set: Vector2
 
 func _ready():
 	var dir_open = $'VBoxContainer/HBoxContainer2/Dir_path'
-	if is_index == 'index':
+	if platform == 'Web':
 		dir_open.visible = false
 	else:
 		dir_open.visible = true
