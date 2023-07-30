@@ -2,6 +2,4 @@ res://default_env.tres
 res://Scenes/Main.tscn
 res://Scenes/save_panel.tscn
 res://Scripts/Main.gd
-res://Scripts/Save_Button.gd
-res://shader/Token_Shader.gdshader
-res://shader/Token_Shader02.gdshader
+res://Scripts/Token_TextureRect.gd

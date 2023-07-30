@@ -1,5 +1,6 @@
 extends Control
 
+signal img_sz(_size)
 
 var BASE_PATH = OS.get_executable_path().get_base_dir() #'user://'
 var platform = OS.get_name()
@@ -48,36 +49,43 @@ func load_char_image(path):
 	var valid_image = load_external_tex(path)
 	var tex = Texture2D.new()
 	
-	tex = valid_image 
+	tex = valid_image
+	var self_div = tex.get_size()[0] - tex.get_size()[1]
+	var ref_div = [(tex.get_size()[0]/500)*0.1, (500/tex.get_size()[1])*1.0]
+	emit_signal('img_sz', tex.get_size())
 	TexRect.texture = tex
 	TexRect.material = null
 	$Panel/HBoxContainer/Panel/CenterContainer/Label.visible = false
 	Token.material.set_shader_parameter('tex_frg_2' , valid_image)
 
 
+
 func _Save_Token(save_path):
-	$Label.text = platform
+	#$Label.text = platform
 	var viewport = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport'
 	var img = viewport.get_viewport().get_texture().get_image()
 #	img.flip_y()
 	var path = BASE_PATH + '/tokens/'
 	print(path + save_path)
-	img.save_png(str(path + save_path))
-	if platform == 'Web':
-		var buf = img.save_png_to_buffer()
-		JavaScriptBridge.download_buffer(buf, save_path)
+#	img.save_png(str(path + save_path))
 	
-	elif platform == 'Android':
-#		var mobile_path = 'sdcard/Android/data/%s/files/%s' % [app_name, 'tokens']
-		var mobile_path = '%s/tokens' % BASE_PATH
-		var dir : DirAccess
-#		if dir.dir_exists(mobile_path) == false:
-#			$Label.text = 'false dir'
-#			dir.make_dir(mobile_path)
-		img.save_png(str(BASE_PATH + '/%s' % save_path))
-		OS.shell_open(mobile_path)
-	else:
-		img.save_png(str(path + save_path))
+	match platform:
+		'Web':
+			var buf = img.save_png_to_buffer()
+			JavaScriptBridge.download_buffer(buf, save_path)
+		
+		'Android':
+	#		var mobile_path = 'sdcard/Android/data/%s/files/%s' % [app_name, 'tokens']
+			var mobile_path = '%s/tokens' % BASE_PATH
+			var dir : DirAccess
+	#		if dir.dir_exists(mobile_path) == false:
+	#			$Label.text = 'false dir'
+	#			dir.make_dir(mobile_path)
+			img.save_png(str(BASE_PATH + '/%s' % save_path))
+			OS.shell_open(mobile_path)
+		_:
+			print('saving')
+			img.save_png(str(path + save_path))
 
 
 func _Open_Dir():
@@ -114,13 +122,15 @@ func load_external_tex(path):
 func _on_Save_Button_button_up():
 	var path = BASE_PATH + '/tokens/token.png'
 	var save_panel = savepanel.instantiate()
+	var centerc =  self.get_node('CenterContainer')
+	
 	save_panel.get_node('VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport/CenterContainer/Token_TextureRect').material = Token.material
-	self.get_node("CenterContainer").visible = true
-	self.get_node("CenterContainer").add_child(save_panel)
-	self.get_node("CenterContainer").get_node("save_panel/VBoxContainer/HBoxContainer2/LineEdit").text = 'token'
+	centerc.visible = true
+	centerc.add_child(save_panel)
+	
+	centerc.get_node("save_panel/VBoxContainer/HBoxContainer2/LineEdit").text = 'token'
 	save_panel.get_node("VBoxContainer/HBoxContainer2/Save_PNG_Token_File_button").connect("button_up", Callable(self, "_on_Save_PNG_Token_File_button_up"))
 	save_panel.get_node("VBoxContainer/HBoxContainer2/Dir_path").connect("button_up", Callable(self, "_on_Dir_path_button_up"))
-	#_Save_Token()
 
 
 func _on_Dir_button_up():

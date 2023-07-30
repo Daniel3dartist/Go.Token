@@ -2,17 +2,51 @@ extends TextureRect
 
 @onready var check_box = self.get_parent().get_parent().get_node("CheckBox")
 @onready var color_picker = self.get_parent().get_parent().get_parent().get_parent().get_node("VBoxContainer3/VBoxContainer/CenterContainer/ColorPickerButton")
+@onready var main_root = $"../../../../../../../../../.."
+
 
 func _ready():
+	main_root.connect("img_sz", Callable(self, "on_img_sz"))
 	var base_color = Color('#596b6f')
 	color_picker.color = base_color
 	self.material.set_shader_parameter('outline_color' , base_color)
 	self.material.set_shader_parameter('inner_circle' , 0.45)
 	self.material.set_shader_parameter('shadow_color' ,Color('#00303030'))
 
+
+func on_img_sz(_size):
+	var x = _size[0]
+	var y = _size[1]
+	print('Size: : : ',_size)
+	if x != y:
+		var scale_x = $"../../../X_Scale_Input/X_Scale_Input_HSlider"
+		var scale_y = $"../../Y_Scale_Input/Y_Scale_Input_VSlider"
+		scale_x.value = 1.0
+		scale_y.value = 1.0
+		check_box.button_pressed = false
+		if x > y:
+			print('x')
+			scale_x.value = calc_scale(x)
+#			self.material.set_shader_parameter('uvs_x' , value)
+		else:
+			print('Y')
+			scale_y = calc_scale(y)
+
+func calc_scale(n):
+	var value = (n/500)*0.1
+	print('Value: ', value)
+	print('Snapper: ', snappedf(1.0-value, 0.1))
+	value =  1.0-value
+	if value < 1.95:
+		print('value 1.0')
+		value = 1.0
+	else:
+		value = snappedf(value, 0.1)
+	return value
+
 func _on_X_Scale_Input_HSlider_value_changed(value):
 	var y_scale = self.get_parent().get_parent().get_node("Y_Scale_Input/Y_Scale_Input_VSlider")
-	
+	print(value)
 	self.material.set_shader_parameter('uvs_x' , value)
 	if check_box.button_pressed == true:
 		self.material.set_shader_parameter('uvs_y' , value)
@@ -20,6 +54,7 @@ func _on_X_Scale_Input_HSlider_value_changed(value):
 
 
 func _on_Y_Scale_Input_VSlider_value_changed(value):
+	print(value)
 	var x_scale = self.get_parent().get_parent().get_parent().get_node("X_Scale_Input/X_Scale_Input_HSlider")
 	self.material.set_shader_parameter('uvs_y' , value)
 

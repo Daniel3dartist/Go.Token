@@ -234,9 +234,11 @@ text = "X"
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+min_value = -1.0
 max_value = 1.0
 step = 0.1
 value = 1.0
+allow_lesser = true
 tick_count = 10
 
 [node name="Container2" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Scale_Input"]
@@ -260,9 +262,11 @@ text = "Y"
 custom_minimum_size = Vector2(0, 240)
 layout_mode = 2
 size_flags_vertical = 3
+min_value = -1.0
 max_value = 1.0
 step = 0.1
 value = 1.0
+allow_greater = true
 tick_count = 10
 
 [node name="Container2" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input"]
@@ -769,6 +773,16 @@ size_flags_vertical = 0
 icon = ExtResource("5")
 icon_alignment = 1
 expand_icon = true
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Scale_Input/X_Scale_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_X_Scale_Input_HSlider_value_changed"]
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input/Y_Scale_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_Y_Scale_Input_VSlider_value_changed"]
