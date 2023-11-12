@@ -1,5 +1,6 @@
 res://default_env.tres
 res://Scenes/Main.tscn
-res://Scenes/save_panel.tscn
-res://Scripts/Main.gd
 res://Scripts/Token_TextureRect.gd
+res://Scripts/Main.gd
+res://Scenes/save_panel.tscn
+res://Scripts/save_panel.gd

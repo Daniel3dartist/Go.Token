@@ -127,6 +127,8 @@ func _on_Save_Button_button_up():
 	save_panel.get_node('VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport/CenterContainer/Token_TextureRect').material = Token.material
 	centerc.visible = true
 	centerc.add_child(save_panel)
+	var dir_button = save_panel.get_node('VBoxContainer/HBoxContainer2/Dir_path')
+	dir_button.connect("button_up", Callable(self, "_on_Dir_button_up"))
 	
 	centerc.get_node("save_panel/VBoxContainer/HBoxContainer2/LineEdit").text = 'token'
 	save_panel.get_node("VBoxContainer/HBoxContainer2/Save_PNG_Token_File_button").connect("button_up", Callable(self, "_on_Save_PNG_Token_File_button_up"))
@@ -147,9 +149,7 @@ func _on_Save_PNG_Token_File_button_up():
 	save_path = BASE_PATH + '/tokens/%s' % file_name
 	_Save_Token(file_name)
 
-
-func _on_Dir_path_button_up():
-	_Open_Dir()
+	
 
 
 

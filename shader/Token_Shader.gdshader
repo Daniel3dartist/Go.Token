@@ -18,8 +18,7 @@ uniform float uvm_y;
 
 const vec4 alpha_color= vec4(0,0,0,0);
 
-uniform float smoothness=0.00;
-uniform float shadow_smoothness=0.01;
+const float smoothness=0.003;
 
 void vertex() {
 // Output:0
@@ -37,12 +36,12 @@ void fragment() {
 	float n_out2p1 = tex_frg_2_read.a;
 
 // Shadow
-
+	float outline_smoothness = smoothness;
     vec2 shadow_uv = UV-vec2(0.5,0.5);
     float shadow_dist = length(shadow_uv);
 
-    vec4 shadow = mix(alpha_color, shadow_color, smoothstep(inner_shadow - shadow_smoothness, inner_shadow + shadow_smoothness, shadow_dist));
-    shadow = mix(shadow, alpha_color, smoothstep(outer_shadow-smoothness,outer_shadow+shadow_smoothness,shadow_dist));
+    vec4 shadow = mix(alpha_color, shadow_color, smoothstep(inner_shadow - outline_smoothness, inner_shadow + outline_smoothness, shadow_dist));
+    shadow = mix(shadow, alpha_color, smoothstep(outer_shadow-smoothness,outer_shadow+outline_smoothness,shadow_dist));
 
 
 // Cicle

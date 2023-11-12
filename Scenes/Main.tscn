@@ -81,8 +81,6 @@ shader_parameter/uvs_x = 1.0
 shader_parameter/uvs_y = 1.0
 shader_parameter/uvm_x = 0.0
 shader_parameter/uvm_y = null
-shader_parameter/smoothness = 0.0
-shader_parameter/shadow_smoothness = 0.0
 shader_parameter/tex_frg_2 = ExtResource("3")
 
 [sub_resource type="StyleBoxFlat" id="17"]
@@ -234,7 +232,6 @@ text = "X"
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -1.0
 max_value = 1.0
 step = 0.1
 value = 1.0
@@ -262,7 +259,6 @@ text = "Y"
 custom_minimum_size = Vector2(0, 240)
 layout_mode = 2
 size_flags_vertical = 3
-min_value = -1.0
 max_value = 1.0
 step = 0.1
 value = 1.0
@@ -722,11 +718,12 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
+offset_left = 8.0
 offset_top = -13.0
-offset_right = 86.0
+offset_right = 94.0
 offset_bottom = 13.0
 grow_vertical = 2
-text = " v_0.0.0.2"
+text = " v_0.0.0.3"
 
 [node name="MIT_Author" type="Label" parent="ColorRect"]
 layout_mode = 1
@@ -784,7 +781,9 @@ offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[connection signal="gui_input" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Scale_Input/X_Scale_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_x_scale_input_h_slider_gui_input"]
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Scale_Input/X_Scale_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_X_Scale_Input_HSlider_value_changed"]
+[connection signal="gui_input" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input/Y_Scale_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_y_scale_input_v_slider_gui_input"]
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input/Y_Scale_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_Y_Scale_Input_VSlider_value_changed"]
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Position_Input/Y_Position_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_Y_Position_Input_VSlider_value_changed"]
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Position_Input/X_Position_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_X_Position_Input_HSlider_value_changed"]

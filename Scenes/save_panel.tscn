@@ -23,8 +23,6 @@ shader_parameter/uvs_x = 1.0
 shader_parameter/uvs_y = 1.0
 shader_parameter/uvm_x = 0.0
 shader_parameter/uvm_y = null
-shader_parameter/smoothness = 0.01
-shader_parameter/shadow_smoothness = 0.01
 shader_parameter/tex_frg_2 = ExtResource("2")
 
 [node name="save_panel" type="Panel"]
