@@ -30,6 +30,8 @@ Download the stand version of Godot 4.x (you can get clicking [here](https://god
 Clone this repository on your machine.
 ````
 cd <the path here the clone going to be download>
+````
+````
 git clone https://github.com/Daniel3dartist/Go.Token.git
 ````
 - Open Godot and import the project from the clone path
