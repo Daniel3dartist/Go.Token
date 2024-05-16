@@ -14,8 +14,8 @@ config/name="Go.Token"
 config/version="0.0.0.4"
 run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.2")
-config/icon="res://Base_Image/Token.png"
-config/windows_native_icon="res://Base_Image/Token.ico"
+config/icon="res://ico/Token.png"
+config/windows_native_icon="res://ico/Token.ico"
 
 [display]
 

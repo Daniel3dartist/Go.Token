@@ -1,15 +1,15 @@
 [gd_scene load_steps=23 format=3 uid="uid://bvh25fep7v8m7"]
 
-[ext_resource type="Texture2D" uid="uid://l6fjq0aoscvs" path="res://Base_Image/Char_Base_Image.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://euu6k4sek3r6" path="res://Assets/Char_Base_Image.png" id="1"]
 [ext_resource type="Shader" path="res://shader/Token_Shader.gdshader" id="2"]
-[ext_resource type="Texture2D" uid="uid://bwhiplm3iggjp" path="res://Base_Image/Char_Base_Image_300x300p.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://du40a58fx6fw8" path="res://Base_Image/link-icon_32.webp" id="3_xeieg"]
+[ext_resource type="Texture2D" uid="uid://denywxsku0npc" path="res://Assets/Char_Base_Image_300x300p.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://boxixrei2mq0n" path="res://Assets/link-icon_32.webp" id="3_xeieg"]
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="4"]
-[ext_resource type="Texture2D" uid="uid://cwdgu1k1dxasp" path="res://Base_Image/broken-link-icon_32.png" id="4_lg1ei"]
-[ext_resource type="Texture2D" uid="uid://rs0trjsrfmjp" path="res://Base_Image/open-folder-outline-icon.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://dcs2wvkmj4kkj" path="res://Assets/broken-link-icon_32.png" id="4_lg1ei"]
+[ext_resource type="Texture2D" uid="uid://bx1l2jfkcsurd" path="res://Assets/open-folder-outline-icon.png" id="5"]
 [ext_resource type="Script" path="res://Scripts/Token_TextureRect.gd" id="6"]
 [ext_resource type="Script" path="res://Scripts/Token_Ring.gd" id="7_ktw1h"]
-[ext_resource type="Texture2D" uid="uid://bndik2sxctp8y" path="res://Base_Image/save-icon.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://i0fwgxcay80h" path="res://Assets/save-icon.png" id="8"]
 [ext_resource type="Script" path="res://Scripts/Save_Button.gd" id="9"]
 
 [sub_resource type="StyleBoxFlat" id="2"]
@@ -315,7 +315,7 @@ texture = ExtResource("3")
 expand_mode = 1
 stretch_mode = 2
 
-[node name="Token_TextureRect2" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
+[node name="Token_TextureRect" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
 material = SubResource("12")
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
