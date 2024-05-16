@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bvh25fep7v8m7"]
+[gd_scene load_steps=23 format=3 uid="uid://bvh25fep7v8m7"]
 
 [ext_resource type="Texture2D" uid="uid://l6fjq0aoscvs" path="res://Base_Image/Char_Base_Image.png" id="1"]
 [ext_resource type="Shader" path="res://shader/Token_Shader.gdshader" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cwdgu1k1dxasp" path="res://Base_Image/broken-link-icon_32.png" id="4_lg1ei"]
 [ext_resource type="Texture2D" uid="uid://rs0trjsrfmjp" path="res://Base_Image/open-folder-outline-icon.png" id="5"]
 [ext_resource type="Script" path="res://Scripts/Token_TextureRect.gd" id="6"]
+[ext_resource type="Script" path="res://Scripts/Token_Ring.gd" id="7_ktw1h"]
 [ext_resource type="Texture2D" uid="uid://bndik2sxctp8y" path="res://Base_Image/save-icon.png" id="8"]
 [ext_resource type="Script" path="res://Scripts/Save_Button.gd" id="9"]
 
@@ -101,6 +102,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4")
+metadata/_edit_vertical_guides_ = [-1162.0]
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -296,7 +298,24 @@ layout_mode = 2
 [node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 
-[node name="Token_TextureRect" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
+[node name="Token_Ring" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
+material = SubResource("12")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 2
+script = ExtResource("7_ktw1h")
+
+[node name="Token_FX" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
+material = SubResource("12")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Token_TextureRect2" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
 material = SubResource("12")
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
@@ -723,7 +742,7 @@ offset_top = -13.0
 offset_right = 94.0
 offset_bottom = 13.0
 grow_vertical = 2
-text = " v_0.0.0.3"
+text = " v_0.0.0.4"
 
 [node name="MIT_Author" type="Label" parent="ColorRect"]
 layout_mode = 1
@@ -781,19 +800,19 @@ offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="gui_input" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Scale_Input/X_Scale_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_x_scale_input_h_slider_gui_input"]
-[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Scale_Input/X_Scale_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_X_Scale_Input_HSlider_value_changed"]
-[connection signal="gui_input" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input/Y_Scale_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_y_scale_input_v_slider_gui_input"]
-[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input/Y_Scale_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_Y_Scale_Input_VSlider_value_changed"]
-[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Position_Input/Y_Position_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_Y_Position_Input_VSlider_value_changed"]
-[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Position_Input/X_Position_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_X_Position_Input_HSlider_value_changed"]
-[connection signal="color_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3/VBoxContainer/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_ColorPickerButton_color_changed"]
-[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3/VBoxContainer2/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_RingSize_value_changed"]
-[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3/VBoxContainer3/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_ShadowSize_value_changed"]
-[connection signal="color_changed" from="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer4/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_ColorPickerButton_color_changed"]
-[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer5/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_RingSize_value_changed"]
-[connection signal="color_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer4/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_ColorPickerButton_color_changed"]
-[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer5/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_RingSize_value_changed"]
-[connection signal="toggled" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6/CenterContainer/CheckButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_CheckButton_Outline_toggled"]
+[connection signal="gui_input" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Scale_Input/X_Scale_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_x_scale_input_h_slider_gui_input"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Scale_Input/X_Scale_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_X_Scale_Input_HSlider_value_changed"]
+[connection signal="gui_input" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input/Y_Scale_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_y_scale_input_v_slider_gui_input"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Scale_Input/Y_Scale_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_Y_Scale_Input_VSlider_value_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/Y_Position_Input/Y_Position_Input_VSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_Y_Position_Input_VSlider_value_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Position_Input/X_Position_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_X_Position_Input_HSlider_value_changed"]
+[connection signal="color_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3/VBoxContainer/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_ColorPickerButton_color_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3/VBoxContainer2/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_RingSize_value_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3/VBoxContainer3/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_ShadowSize_value_changed"]
+[connection signal="color_changed" from="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer4/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_ColorPickerButton_color_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer5/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_RingSize_value_changed"]
+[connection signal="color_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer4/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_ColorPickerButton_color_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer5/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_RingSize_value_changed"]
+[connection signal="toggled" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6/CenterContainer/CheckButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_CheckButton_Outline_toggled"]
 [connection signal="button_up" from="ColorRect/HBoxContainer/Save_Button" to="." method="_on_Save_Button_button_up"]
 [connection signal="button_up" from="ColorRect/HBoxContainer/Dir" to="." method="_on_Dir_button_up"]
