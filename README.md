@@ -1,5 +1,5 @@
 # Go.Token
-![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/Base_Image/Token.png)
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/ico/Token.png)
 ## What is Go.Token?
 
 Go.Token is a token creation tool for players and dungeon masters to use at their Virtual Tabletop.
@@ -15,7 +15,9 @@ Get access to the compiled version by clicking [here](https://danielsobrinho.itc
 
 # About the project
 
-This project is developed using the Godot open source game engine. 
+This project is being developed using Godot Game Engine.
+
+For more information about Godot visit [godotengine.org](https://godotengine.org/).
 
 Engine version:
 - Godot 4.2.2
@@ -34,6 +36,29 @@ cd <the path here the clone going to be download>
 ````
 git clone https://github.com/Daniel3dartist/Go.Token.git
 ````
-- Open Godot and import the project from the clone path
-- Open the project
-- run the project pressing f5
+
+### Open Godot and import the project from the clone path
+
+1:
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/img/Hello_Project_Steps/01.PNG)
+
+2:
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/img/Hello_Project_Steps/02.PNG)
+
+3:
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/img/Hello_Project_Steps/03.PNG)
+
+4:
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/img/Hello_Project_Steps/04.PNG)
+
+### Open the project
+
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/img/Hello_Project_Steps/05.PNG)
+### Run the project 
+
+Press f5 to run the main scene of the project
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/img/Hello_Project_Steps/06.PNG)
+
+## Godot documentation
+
+To access Godot documentation, simply access: [docs.godotengine.org](https://docs.godotengine.org/en/stable/)
