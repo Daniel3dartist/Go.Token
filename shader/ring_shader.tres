@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dj83x4rj7sjlx"]
+
+[ext_resource type="Shader" path="res://shader/Token_Shader.gdshader" id="1_04hea"]
+[ext_resource type="Texture2D" uid="uid://clepve88posu0" path="res://Assets/sample_img.png" id="2_4rbsx"]
+
+[resource]
+shader = ExtResource("1_04hea")
+shader_parameter/outline_color = Color(1, 1, 0, 1)
+shader_parameter/inner_circle = 0.451
+shader_parameter/outer_circle = 0.49
+shader_parameter/shadow_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+shader_parameter/inner_shadow = 0.48
+shader_parameter/outer_shadow = 0.49
+shader_parameter/uvs_x = 1.0
+shader_parameter/uvs_y = 1.0
+shader_parameter/uvm_x = 0.0
+shader_parameter/uvm_y = null
+shader_parameter/tex_frg_2 = ExtResource("2_4rbsx")
