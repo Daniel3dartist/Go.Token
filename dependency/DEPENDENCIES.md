@@ -2,8 +2,8 @@
 
 This project uses some external resources to be able to execute some functionalities. Following has the dependencies and steps to download and add to the project.
 
-## ImageMagick
-![image link]()
+# ImageMagick
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/develop/doc_img/dependency/ImageMagick/ImageMagick_logo.svg.png)
 
 Unfortunately, Godot does not provide support for image .gif files by default, to be able to manipulate files of this type (separate frames into single files or take an image sequence and transform it into a GIF), we need to use ImageMagick.
 
@@ -24,6 +24,8 @@ Copy the file in the path: ~/Go.Token/dependency/ImageMagick/ImageMagick_Linux/
 
 
 And ready! All dependencies have been configured properly.
+
+![image_link](https://imagemagick.org/image/wizard.jpg)
 
 See more about using ImageMagick in its documentation:
 - [imagemagick.org](https://imagemagick.org/script/command-line-processing.php)
