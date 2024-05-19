@@ -54,7 +54,7 @@ void fragment() {
 	vec4 circle_color = mix (_color,alpha_color,smoothstep(outer_circle-smoothness,outer_circle+smoothness,dist));
 
 	
-	COLOR = mix (circle_color, shadow,shadow.a);//shadow.a +
+	COLOR = vec4(0.0,0.0,0.0,circle_color.a);//shadow.a +
 
 // Output:0
 //	COLOR.rgb = n_out2p0;

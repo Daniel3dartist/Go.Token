@@ -1,7 +1,5 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvh25fep7v8m7"]
+[gd_scene load_steps=24 format=3 uid="uid://bvh25fep7v8m7"]
 
-[ext_resource type="Texture2D" uid="uid://euu6k4sek3r6" path="res://Assets/Char_Base_Image.png" id="1"]
-[ext_resource type="Shader" path="res://shader/Token_Shader.gdshader" id="2"]
 [ext_resource type="Texture2D" uid="uid://denywxsku0npc" path="res://Assets/Char_Base_Image_300x300p.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://boxixrei2mq0n" path="res://Assets/link-icon_32.webp" id="3_xeieg"]
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="4"]
@@ -10,9 +8,14 @@
 [ext_resource type="Script" path="res://Scripts/Token_TextureRect.gd" id="6"]
 [ext_resource type="Script" path="res://Scripts/Token_Ring.gd" id="7_ktw1h"]
 [ext_resource type="Texture2D" uid="uid://i0fwgxcay80h" path="res://Assets/save-icon.png" id="8"]
-[ext_resource type="Shader" path="res://shader/Ring_Shader.gdshader" id="8_ads7l"]
-[ext_resource type="Texture2D" uid="uid://clepve88posu0" path="res://Assets/sample_img.png" id="8_vl3bq"]
+[ext_resource type="Material" uid="uid://6g14se2dltbg" path="res://shader/Token_Texture_shader_material.tres" id="8_8k68s"]
+[ext_resource type="Shader" path="res://shader/Main.gdshader" id="8_66wgv"]
+[ext_resource type="Material" uid="uid://dj83x4rj7sjlx" path="res://shader/ring_shader.tres" id="8_b8yo7"]
+[ext_resource type="Shader" uid="uid://dd4vr64l5cnyw" path="res://shader/Visual_Shader.res" id="8_o5gof"]
 [ext_resource type="Script" path="res://Scripts/Save_Button.gd" id="9"]
+[ext_resource type="Texture2D" uid="uid://ca4xu640jnspn" path="res://Assets/alpha_01.png" id="9_sfxb8"]
+[ext_resource type="PackedScene" uid="uid://bw2xsyax3qigo" path="res://Scenes/node_3d.tscn" id="10_syasy"]
+[ext_resource type="PackedScene" uid="uid://0yhu23v481bt" path="res://Scenes/node_2d.tscn" id="10_tps5c"]
 
 [sub_resource type="StyleBoxFlat" id="2"]
 bg_color = Color(0.701961, 0.701961, 0.701961, 1)
@@ -20,85 +23,14 @@ bg_color = Color(0.701961, 0.701961, 0.701961, 1)
 [sub_resource type="StyleBoxFlat" id="1"]
 bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="VisualShaderNodeTexture" id="13"]
-texture = ExtResource("1")
-
-[sub_resource type="VisualShaderNodeMix" id="14"]
-output_port_for_preview = 0
-
-[sub_resource type="VisualShaderNodeColorConstant" id="15"]
-constant = Color(0.625515, 0.625515, 0.625515, 1)
-
-[sub_resource type="VisualShader" id="16"]
-code = "shader_type canvas_item;
-render_mode blend_mix;
-
-uniform sampler2D tex_frg_2;
-
-
-
-void fragment() {
-// ColorConstant:4
-	vec4 n_out4p0 = vec4(0.625515, 0.625515, 0.625515, 1.000000);
-
-
-// Texture2D:2
-	vec4 n_out2p0 = texture(tex_frg_2, UV);
-
-
-// Mix:3
-	float n_out3p0 = mix(n_out4p0.x, n_out2p0.x, n_out2p0.x);
-
-
-// Output:0
-	COLOR.rgb = vec3(n_out3p0);
-
-
-}
-"
-graph_offset = Vector2(-349.743, -41.1317)
-mode = 1
-flags/light_only = false
-nodes/fragment/2/node = SubResource("13")
-nodes/fragment/2/position = Vector2(-340, 120)
-nodes/fragment/3/node = SubResource("14")
-nodes/fragment/3/position = Vector2(180, 40)
-nodes/fragment/4/node = SubResource("15")
-nodes/fragment/4/position = Vector2(-80, 20)
-nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0, 2, 0, 3, 1, 4, 0, 3, 0, 2, 0, 3, 2)
-
-[sub_resource type="ShaderMaterial" id="11"]
-shader = SubResource("16")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6eo7o"]
+shader = ExtResource("8_o5gof")
 
 [sub_resource type="StyleBoxFlat" id="3"]
 
-[sub_resource type="ShaderMaterial" id="12"]
-shader = ExtResource("2")
-shader_parameter/outline_color = Color(1, 1, 0, 0)
-shader_parameter/inner_circle = 0.451
-shader_parameter/outer_circle = 0.49
-shader_parameter/shadow_color = Color(0.0901961, 0.0901961, 0.0901961, 0)
-shader_parameter/inner_shadow = 0.48
-shader_parameter/outer_shadow = 0.49
-shader_parameter/uvs_x = 1.0
-shader_parameter/uvs_y = 1.0
-shader_parameter/uvm_x = 0.0
-shader_parameter/uvm_y = null
-shader_parameter/tex_frg_2 = ExtResource("3")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5j6vi"]
-shader = ExtResource("8_ads7l")
-shader_parameter/outline_color = Color(1, 1, 0, 1)
-shader_parameter/inner_circle = 0.451
-shader_parameter/outer_circle = 0.49
-shader_parameter/shadow_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
-shader_parameter/inner_shadow = 0.48
-shader_parameter/outer_shadow = 0.49
-shader_parameter/uvs_x = 1.0
-shader_parameter/uvs_y = 1.0
-shader_parameter/uvm_x = 0.0
-shader_parameter/uvm_y = null
-shader_parameter/tex_frg_2 = ExtResource("8_vl3bq")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2t8cb"]
+shader = ExtResource("8_66wgv")
+shader_parameter/tex_frg_6 = ExtResource("9_sfxb8")
 
 [sub_resource type="StyleBoxFlat" id="17"]
 bg_color = Color(0.480483, 0.466164, 0.544922, 1)
@@ -160,12 +92,12 @@ offset_right = 250.0
 offset_bottom = 250.0
 
 [node name="Char_Image" type="TextureRect" parent="Panel/HBoxContainer/Panel/CenterContainer"]
-material = SubResource("11")
+material = SubResource("ShaderMaterial_6eo7o")
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("1")
+texture = ExtResource("3")
 expand_mode = 2
 stretch_mode = 5
 
@@ -314,9 +246,34 @@ layout_mode = 2
 [node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 
-[node name="Token_Ring" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
+[node name="Token_TextureRect" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
 visible = false
-material = SubResource("12")
+material = ExtResource("8_8k68s")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 2
+script = ExtResource("6")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
+material = SubResource("ShaderMaterial_2t8cb")
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+size = Vector2i(300, 300)
+render_target_update_mode = 4
+
+[node name="Node2D" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/SubViewportContainer/SubViewport" instance=ExtResource("10_tps5c")]
+visible = false
+
+[node name="Node3D" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/SubViewportContainer/SubViewport" instance=ExtResource("10_syasy")]
+
+[node name="Token_Ring" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
+material = ExtResource("8_b8yo7")
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 texture = ExtResource("3")
@@ -325,21 +282,12 @@ stretch_mode = 2
 script = ExtResource("7_ktw1h")
 
 [node name="Token_FX" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
-material = SubResource("ShaderMaterial_5j6vi")
+visible = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 texture = ExtResource("3")
 expand_mode = 1
 stretch_mode = 2
-
-[node name="Token_TextureRect" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
-material = SubResource("12")
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-texture = ExtResource("3")
-expand_mode = 1
-stretch_mode = 2
-script = ExtResource("6")
 
 [node name="Container" type="Container" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(56, 40)
@@ -833,3 +781,6 @@ grow_vertical = 2
 [connection signal="toggled" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6/CenterContainer/CheckButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_CheckButton_Outline_toggled"]
 [connection signal="button_up" from="ColorRect/HBoxContainer/Save_Button" to="." method="_on_Save_Button_button_up"]
 [connection signal="button_up" from="ColorRect/HBoxContainer/Dir" to="." method="_on_Dir_button_up"]
+
+[editable path="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/SubViewportContainer/SubViewport/Node2D"]
+[editable path="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/SubViewportContainer/SubViewport/Node3D"]
