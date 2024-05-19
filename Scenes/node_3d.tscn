@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://bw2xsyax3qigo"]
+
+[ext_resource type="PackedScene" uid="uid://cwkfg7r7e2xtx" path="res://Assets/3d_models/scenes/orc_idle_02.tscn" id="1_g6y4u"]
+[ext_resource type="Script" path="res://Scripts/WorldEnvironment.gd" id="1_mcquy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_whbfn"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8oyuw"]
+
+[sub_resource type="Sky" id="Sky_yfxsa"]
+sky_material = SubResource("ProceduralSkyMaterial_8oyuw")
+
+[sub_resource type="Environment" id="Environment_a6qre"]
+background_mode = 2
+sky = SubResource("Sky_yfxsa")
+tonemap_mode = 3
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.940911, -0.0341986, -0.336922, 0.0228489, 0.999032, -0.0375954, 0.337882, 0.0276757, 0.940782, -0.354389, 1.56681, 0.896546)
+fov = 63.5233
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_whbfn")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_a6qre")
+script = ExtResource("1_mcquy")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.946176, -0.226214, -0.231471, 0.323653, 0.66132, 0.676687, -4.02248e-09, -0.715181, 0.69894, -4.68907, 0.913537, 0)
+
+[node name="orc_idle_02" parent="." instance=ExtResource("1_g6y4u")]

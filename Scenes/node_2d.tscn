@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://0yhu23v481bt"]
+
+[ext_resource type="Material" uid="uid://dj83x4rj7sjlx" path="res://shader/ring_shader.tres" id="1_rt8u8"]
+[ext_resource type="Texture2D" uid="uid://denywxsku0npc" path="res://Assets/Char_Base_Image_300x300p.png" id="2_na2tx"]
+[ext_resource type="Texture2D" uid="uid://bep7rqunk1f1w" path="res://Assets/img_to_test/PLayer_Itensaseprite02.png" id="3_8ofll"]
+[ext_resource type="Script" path="res://Scripts/SpriteSheet.gd" id="4_e77ct"]
+
+[node name="Control" type="Control"]
+material = ExtResource("1_rt8u8")
+layout_mode = 3
+anchors_preset = 0
+offset_right = 563.0
+offset_bottom = 442.0
+
+[node name="Char_Image" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(768, 1394)
+layout_mode = 1
+offset_right = 1394.0
+offset_bottom = 1394.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("2_na2tx")
+expand_mode = 3
+
+[node name="SpriteSheet" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(54, 67)
+scale = Vector2(3, 3)
+texture = ExtResource("3_8ofll")
+centered = false
+hframes = 4
+vframes = 4
+script = ExtResource("4_e77ct")
+
+[node name="Timer" type="Timer" parent="SpriteSheet"]
+
+[connection signal="timeout" from="SpriteSheet/Timer" to="SpriteSheet" method="_on_timer_timeout"]

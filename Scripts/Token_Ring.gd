@@ -7,3 +7,11 @@ func _on_CheckButton_Outline_toggled(button_pressed):
 		self.material.set_shader_parameter('shadow_color' , Color('#303030'))
 	else:
 		self.material.set_shader_parameter('shadow_color' , Color('#00303030'))
+
+
+func _on_ColorPickerButton_color_changed(color):
+	self.material.set_shader_parameter('outline_color' , color)
+
+
+func _on_RingSize_value_changed(value):
+	self.material.set_shader_parameter('inner_circle' , ((50 - value)/100))

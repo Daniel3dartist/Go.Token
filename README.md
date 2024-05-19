@@ -40,24 +40,24 @@ git clone https://github.com/Daniel3dartist/Go.Token.git
 ### Open Godot and import the project from the clone path
 
 1:
-![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/img/Hello_Project_Steps/01.PNG)
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/doc_img/Hello_Project_Steps/01.PNG)
 
 2:
-![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/img/Hello_Project_Steps/02.PNG)
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/doc_img/Hello_Project_Steps/02.PNG)
 
 3:
-![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/img/Hello_Project_Steps/03.PNG)
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/doc_img/Hello_Project_Steps/03.PNG)
 
 4:
-![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/img/Hello_Project_Steps/04.PNG)
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/doc_img/Hello_Project_Steps/04.PNG)
 
 ### Open the project
 
-![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/img/Hello_Project_Steps/05.PNG)
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/doc_img/Hello_Project_Steps/05.PNG)
 ### Run the project 
 
 Press f5 to run the main scene of the project
-![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/img/Hello_Project_Steps/06.PNG)
+![image link](https://github.com/Daniel3dartist/Go.Token/blob/main/doc_img/Hello_Project_Steps/06.PNG)
 
 ## Godot documentation
 
