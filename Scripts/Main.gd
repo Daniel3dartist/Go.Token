@@ -2,7 +2,7 @@ extends Control
 
 signal img_sz(_size)
 
-var BASE_PATH = OS.get_executable_path().get_base_dir() #'user://'
+var BASE_PATH:String #= OS.get_executable_path().get_base_dir() #'user://'
 var platform = OS.get_name()
 
 var app_name = 'org.godotengine.gotoken'
@@ -12,23 +12,34 @@ var app_name = 'org.godotengine.gotoken'
 @onready var _Panel = $'Panel/HBoxContainer/Panel'
 
 @onready var savepanel = preload("res://Scenes/save_panel.tscn")
+@onready var GetPath = preload("res://Scripts/get_path.gd").new()
 
 #tmp_js_export
 func _ready():
+	BASE_PATH = GetPath.get_dir_path()
 	if platform == 'Android':
 		BASE_PATH = 'Pictures'
 	var dir_open = $'ColorRect/HBoxContainer/Dir'	
 	get_tree().get_root().connect("files_dropped", Callable(self, "_on_files_dropped"))
-	init()
+	init_setup()
 
-
-
-
-
-func init():
+func make_dir(dir_path):
 	var dir : DirAccess = DirAccess.open(BASE_PATH)
-	if dir.dir_exists(BASE_PATH + '/tokens') == false:
-		dir.make_dir(BASE_PATH + '/tokens')
+	var _path = '{0}{1}'.format([BASE_PATH, dir_path])
+	print("Make dir in path: "+_path)
+	if dir.dir_exists(_path) == false:
+			dir.make_dir(_path)
+
+
+func init_setup():
+	var dirs_to_setup: Array = ['token', 'data', 'temp', 'img']
+	var path_incremental: String
+	for i in range(0,len(dirs_to_setup)):
+		if i < 1:
+			make_dir(dirs_to_setup[i])
+		else:
+			path_incremental+=(dirs_to_setup[i]+"/")
+			make_dir(path_incremental)
 
 
 func _on_files_dropped(files):

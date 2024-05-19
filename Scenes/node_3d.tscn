@@ -1,26 +1,19 @@
 [gd_scene load_steps=7 format=3 uid="uid://bw2xsyax3qigo"]
 
-[ext_resource type="Texture2D" uid="uid://57h0o2vjtaiu" path="res://Assets/hdri/snow_field_puresky_1k.hdr" id="1_buiic"]
 [ext_resource type="PackedScene" uid="uid://cwkfg7r7e2xtx" path="res://Assets/3d_models/scenes/orc_idle_02.tscn" id="1_g6y4u"]
+[ext_resource type="Script" path="res://Scripts/WorldEnvironment.gd" id="1_mcquy"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_whbfn"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bd6pq"]
-panorama = ExtResource("1_buiic")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8oyuw"]
 
-[sub_resource type="Sky" id="Sky_207hl"]
-sky_material = SubResource("PanoramaSkyMaterial_bd6pq")
+[sub_resource type="Sky" id="Sky_yfxsa"]
+sky_material = SubResource("ProceduralSkyMaterial_8oyuw")
 
 [sub_resource type="Environment" id="Environment_a6qre"]
 background_mode = 2
-sky = SubResource("Sky_207hl")
+sky = SubResource("Sky_yfxsa")
 tonemap_mode = 3
-ssr_enabled = true
-ssao_enabled = true
-ssil_enabled = true
-sdfgi_enabled = true
-glow_enabled = true
-glow_normalized = true
 
 [node name="Node3D" type="Node3D"]
 
@@ -34,9 +27,9 @@ mesh = SubResource("BoxMesh_whbfn")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_a6qre")
+script = ExtResource("1_mcquy")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(0.946176, -0.226214, -0.231471, 0.323653, 0.66132, 0.676687, -4.02248e-09, -0.715181, 0.69894, -4.68907, 0.913537, 0)
-visible = false
 
 [node name="orc_idle_02" parent="." instance=ExtResource("1_g6y4u")]
