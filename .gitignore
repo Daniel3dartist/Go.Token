@@ -2,3 +2,5 @@
 *.import
 data
 *.gif
+*/ImageMagick/ImageMagick_Linux/*
+*/ImageMagick/ImageMagick_Windows/*
