@@ -40,7 +40,7 @@ git clone https://github.com/Daniel3dartist/Go.Token.git
 ### Add dependencies
 
 This project uses some external dependencies, see below how they are added to the project:
-- [DEPENDENCIES.MD]()
+- [DEPENDENCIES.MD](https://github.com/Daniel3dartist/Go.Token/blob/main/dependency/DEPENDENCIES.md)
 
 
 ### Open Godot and import the project from the clone path
