@@ -105,7 +105,7 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Drop your file here.
-( JPG, PNG, WEBP, TGA, BMP)"
+( JPG, PNG, WEBP, TGA, BMP, GIF)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -247,7 +247,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Token_TextureRect" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
-visible = false
 material = ExtResource("8_8k68s")
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
@@ -257,6 +256,7 @@ stretch_mode = 2
 script = ExtResource("6")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
+visible = false
 material = SubResource("ShaderMaterial_2t8cb")
 layout_mode = 2
 
@@ -265,12 +265,15 @@ transparent_bg = true
 handle_input_locally = false
 snap_2d_transforms_to_pixel = true
 size = Vector2i(300, 300)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="Node2D" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/SubViewportContainer/SubViewport" instance=ExtResource("10_tps5c")]
 visible = false
 
 [node name="Node3D" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/SubViewportContainer/SubViewport" instance=ExtResource("10_syasy")]
+
+[node name="MeshInstance3D" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/SubViewportContainer/SubViewport/Node3D" index="1"]
+visible = true
 
 [node name="Token_Ring" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
 material = ExtResource("8_b8yo7")
