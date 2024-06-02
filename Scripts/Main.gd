@@ -24,10 +24,10 @@ func _ready():
 	elif platform == "Web":
 		var label_suported_files:Label = $Panel/HBoxContainer/Panel/CenterContainer/Label
 		label_suported_files.text="Drop your file here.\n( JPG, PNG, WEBP, TGA, BMP)"
-	var dir_open = $'ColorRect/HBoxContainer/Dir'	
+	var dir_open = $'ColorRect/HBoxContainer/Dir'
+	await init_setup()
 	get_tree().get_root().connect("files_dropped", Callable(self, "_on_files_dropped"))
 	await gif_builder.clean_cache()
-	init_setup()
 
 func make_dir(dir_path):
 	var dir : DirAccess = DirAccess.open(BASE_PATH)
@@ -38,14 +38,17 @@ func make_dir(dir_path):
 
 
 func init_setup():
-	var dirs_to_setup: Array = ['tokens', 'data', 'temp', 'img']
+	var dirs_to_setup: Array = ['tokens', 'data', 'temp', ['img','token_img']]
 	var path_incremental: String
 	for i in range(0,len(dirs_to_setup)):
 		if i < 1:
 			make_dir(dirs_to_setup[i])
-		else:
+		elif i < 3:
 			path_incremental+=(dirs_to_setup[i]+"/")
 			make_dir(path_incremental)
+		else:
+			for x in dirs_to_setup[3]:
+				make_dir(path_incremental+x+'/')
 
 
 func _on_files_dropped(files):
@@ -81,6 +84,9 @@ func load_char_image(path):
 		img_tipe_label.visible = false
 		TexRect.material = null
 		while true:
+			var is_saving = self.get_node('CenterContainer').get_node('save_panel')
+			if is_saving != null:
+				break
 			for i in range(0 , len(files[1])):
 				#valid_image = load_external_tex(files[0]+i)
 				print(files[0]+files[1][i])
@@ -97,19 +103,20 @@ func load_char_image(path):
 
 
 
-func _Save_Token(save_path):
+func _Save_Token(file_name, type):
 	#$Label.text = platform
 	var viewport = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport'
+	var _token = viewport.get_node("CenterContainer/Token_TextureRect")
 	var img = viewport.get_viewport().get_texture().get_image()
 #	img.flip_y()
-	var path = BASE_PATH + '/tokens/'
-	print(path + save_path)
+	var path = BASE_PATH + 'tokens/'
+	print(path + file_name)
 #	img.save_png(str(path + save_path))
 	
 	match platform:
 		'Web':
 			var buf = img.save_png_to_buffer()
-			JavaScriptBridge.download_buffer(buf, save_path)
+			JavaScriptBridge.download_buffer(buf, file_name)
 		
 		'Android':
 	#		var mobile_path = 'sdcard/Android/data/%s/files/%s' % [app_name, 'tokens']
@@ -118,11 +125,29 @@ func _Save_Token(save_path):
 	#		if dir.dir_exists(mobile_path) == false:
 	#			$Label.text = 'false dir'
 	#			dir.make_dir(mobile_path)
-			img.save_png(str(BASE_PATH + '/%s' % save_path))
+			img.save_png(str(BASE_PATH + '/%s' % file_name))
 			OS.shell_open(mobile_path)
 		_:
-			print('saving')
-			img.save_png(str(path + save_path))
+			print("The Type IS: ", type)
+			if type == "GIF":
+				var tex:Array
+				var img_sequece = gif_builder.get_image_sequence('img')
+				var count: int=0
+				for i in img_sequece[1]:
+					#print("My I: ",img_sequece[0]+i)
+					tex.append(load_external_tex(img_sequece[0]+i)[0])
+				for x in tex:
+					_token.material.set_shader_parameter('tex_frg_2' , x)
+					count+=1
+					viewport = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport'
+					var temp_save_path = gif_builder.temp_dir+'/token_img/token%s.png'%count
+					await img.save_png(temp_save_path)
+					await get_tree().create_timer(0.03).timeout
+					
+				gif_builder.join_frames(file_name)
+			else:
+				print('saving')
+				img.save_png(str(path + file_name))
 
 
 func _Open_Dir():
@@ -204,9 +229,9 @@ func _on_Save_Token_File_button_up():
 		else:
 			file_name = file_name + '.png'
 		save_path = BASE_PATH + '/tokens/%s' % file_name
-		_Save_Token(file_name)
+		_Save_Token(file_name, file_type)
 	else:
-		gif_builder.join_frames(file_name)
+		_Save_Token(file_name, file_type)
 
 	
 
