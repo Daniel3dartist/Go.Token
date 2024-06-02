@@ -13,14 +13,20 @@ var app_name = 'org.godotengine.gotoken'
 
 @onready var savepanel = preload("res://Scenes/save_panel.tscn")
 @onready var GetPath = preload("res://Scripts/get_path.gd").new()
+@onready var gif_builder=preload("res://Scripts/gif_builder.gd").new()
+
 
 #tmp_js_export
 func _ready():
 	BASE_PATH = GetPath.get_dir_path()
 	if platform == 'Android':
 		BASE_PATH = 'Pictures'
+	elif platform == "Web":
+		var label_suported_files:Label = $Panel/HBoxContainer/Panel/CenterContainer/Label
+		label_suported_files.text="Drop your file here.\n( JPG, PNG, WEBP, TGA, BMP)"
 	var dir_open = $'ColorRect/HBoxContainer/Dir'	
 	get_tree().get_root().connect("files_dropped", Callable(self, "_on_files_dropped"))
+	await gif_builder.clean_cache()
 	init_setup()
 
 func make_dir(dir_path):
@@ -32,7 +38,7 @@ func make_dir(dir_path):
 
 
 func init_setup():
-	var dirs_to_setup: Array = ['token', 'data', 'temp', 'img']
+	var dirs_to_setup: Array = ['tokens', 'data', 'temp', 'img']
 	var path_incremental: String
 	for i in range(0,len(dirs_to_setup)):
 		if i < 1:
@@ -57,17 +63,37 @@ func _on_files_dropped(files):
 	
 
 func load_char_image(path):
+	var img_tipe_label = $Panel/HBoxContainer/Panel/CenterContainer/Label
 	var valid_image = load_external_tex(path)
 	var tex = Texture2D.new()
-	
-	tex = valid_image
-	var self_div = tex.get_size()[0] - tex.get_size()[1]
-	var ref_div = [(tex.get_size()[0]/500)*0.1, (500/tex.get_size()[1])*1.0]
-	emit_signal('img_sz', tex.get_size())
-	TexRect.texture = tex
-	TexRect.material = null
-	$Panel/HBoxContainer/Panel/CenterContainer/Label.visible = false
-	Token.material.set_shader_parameter('tex_frg_2' , valid_image)
+	if valid_image[1] != false:
+		print("IS A VALID IMAGE!")
+		tex = valid_image[0]
+		var self_div = tex.get_size()[0] - tex.get_size()[1]
+		var ref_div = [(tex.get_size()[0]/500)*0.1, (500/tex.get_size()[1])*1.0]
+		emit_signal('img_sz', tex.get_size())
+		TexRect.texture = tex
+		TexRect.material = null
+		img_tipe_label.visible = false
+		Token.material.set_shader_parameter('tex_frg_2' , valid_image)
+	else:
+		var files:Array = gif_builder.get_image_sequence()
+		img_tipe_label.visible = false
+		TexRect.material = null
+		while true:
+			for i in range(0 , len(files[1])):
+				#valid_image = load_external_tex(files[0]+i)
+				print(files[0]+files[1][i])
+				if files[1][i].split('.')[-1] == "png":
+					valid_image = load_external_tex(files[0]+files[1][i])
+					tex=valid_image[0]
+					#var self_div = tex.get_size()[0] - tex.get_size()[1]
+					#var ref_div = [(tex.get_size()[0]/500)*0.1, (500/tex.get_size()[1])*1.0]
+					#emit_signal('img_sz', tex.get_size())
+					TexRect.texture = tex
+					Token.material.set_shader_parameter('tex_frg_2' , valid_image[0])
+
+				await get_tree().create_timer(0.03).timeout
 
 
 
@@ -104,30 +130,48 @@ func _Open_Dir():
 
 
 func load_external_tex(path):
-	var tex_file : FileAccess = FileAccess.open(path, FileAccess.READ)
-	var bytes = tex_file.get_buffer(tex_file.get_length())
-	var img = Image.new()
-	var data 
-	var file_type = path.split('.')
-	var is_valid: bool = true
+	var split_key:String = "/"
+	if not split_key in path:
+		split_key = "\\"
+	var file = path.split(split_key)[-1]
+	file = file.split(".")
+	var file_name = file[0]
+	var file_type = file[1].to_lower()
+	var formats = ['png', 'jpg', 'jpeg', 'bmp', 'tga','webp']
+	var is_valid: bool 
+	if formats.has(file_type) == true:
+		print("Format accepted!")
+		var tex_file : FileAccess = FileAccess.open(path, FileAccess.READ)
+		var bytes = tex_file.get_buffer(tex_file.get_length())
+		var img = Image.new()
+		var data 
+		is_valid= true
+
+		if file_type == 'png':
+			print(file_type)
+			data = img.load_png_from_buffer(bytes)
+		elif file_type == 'jpg' or  file_type == 'jpeg':
+			data = img.load_jpg_from_buffer(bytes)
+		elif file_type == 'bmp':
+			data = img.load_bmp_from_buffer(bytes)
+		elif file_type == 'tga':
+			data = img.load_tga_from_buffer(bytes)
+		elif file_type == 'webp':
+			data = img.load_webp_from_buffer(bytes)
+		else:
+			is_valid = false
+			print('\nErro to load character image file. \nUse a valid image file format\n')
 	
-	if file_type[-1] == 'png':
-		data = img.load_png_from_buffer(bytes)
-	elif file_type[-1] == 'jpg' or  file_type[-1] == 'jpeg':
-		data = img.load_jpg_from_buffer(bytes)
-	elif file_type[-1] == 'bmp':
-		data = img.load_bmp_from_buffer(bytes)
-	elif file_type[-1] == 'tga':
-		data = img.load_tga_from_buffer(bytes)
-	elif file_type[-1] == 'webp':
-		data = img.load_webp_from_buffer(bytes)
+		var imgtex : ImageTexture = ImageTexture.create_from_image(img)
+		tex_file.close()
+		return [imgtex, is_valid]
+	elif file_type == "gif":
+		gif_builder.split_frames(path.replace("\\", "/"), file_name)
+		return [null, false]
 	else:
 		is_valid = false
 		print('\nErro to load character image file. \nUse a valid image file format\n')
-	
-	var imgtex : ImageTexture = ImageTexture.create_from_image(img)
-	tex_file.close()
-	return imgtex
+		return [null, false]
 
 
 func _on_Save_Button_button_up():
@@ -138,27 +182,31 @@ func _on_Save_Button_button_up():
 	save_panel.get_node('VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport/CenterContainer/Token_TextureRect').material = Token.material
 	centerc.visible = true
 	centerc.add_child(save_panel)
-	var dir_button = save_panel.get_node('VBoxContainer/HBoxContainer2/Dir_path')
+	var dir_button = save_panel.get_node('VBoxContainer/HBoxContainer4/Dir_path')
 	dir_button.connect("button_up", Callable(self, "_on_Dir_button_up"))
+	dir_button.connect("button_up", Callable(self, "_on_Dir_path_button_up"))
 	
-	centerc.get_node("save_panel/VBoxContainer/HBoxContainer2/LineEdit").text = 'token'
-	save_panel.get_node("VBoxContainer/HBoxContainer2/Save_PNG_Token_File_button").connect("button_up", Callable(self, "_on_Save_PNG_Token_File_button_up"))
-	save_panel.get_node("VBoxContainer/HBoxContainer2/Dir_path").connect("button_up", Callable(self, "_on_Dir_path_button_up"))
+	centerc.get_node("save_panel/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer/LineEdit").text = 'token'
+	save_panel.get_node("VBoxContainer/HBoxContainer4/Save_PNG_Token_File_button").connect("button_up", Callable(self, "_on_Save_Token_File_button_up"))
 
 
 func _on_Dir_button_up():
 	_Open_Dir()
 
 
-func _on_Save_PNG_Token_File_button_up():
-	var file_name = self.get_node("CenterContainer").get_node("save_panel/VBoxContainer/HBoxContainer2/LineEdit").text
-	var save_path
-	if file_name.substr(file_name.length() - 4, -1) == '.png':
-		pass
+func _on_Save_Token_File_button_up():
+	var file_type = self.get_node("CenterContainer").get_node("save_panel/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer2/Image_Type_Selector").text.substr(0,3)
+	var file_name = self.get_node("CenterContainer").get_node("save_panel/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer/LineEdit").text
+	if file_type != "GIF":
+		var save_path
+		if file_name.substr(file_name.length() - 4, -1) == '.png':
+			pass
+		else:
+			file_name = file_name + '.png'
+		save_path = BASE_PATH + '/tokens/%s' % file_name
+		_Save_Token(file_name)
 	else:
-		file_name = file_name + '.png'
-	save_path = BASE_PATH + '/tokens/%s' % file_name
-	_Save_Token(file_name)
+		gif_builder.join_frames(file_name)
 
 	
 

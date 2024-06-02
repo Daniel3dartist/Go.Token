@@ -1,12 +1,14 @@
 extends Panel
 
+@onready var menu_button = $VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer2/Image_Type_Selector
+
 var platform = OS.get_name()
 var is_block : bool = false
 var dragging: bool = false
 var off_set: Vector2
 
 func _ready():
-	var dir_open = $'VBoxContainer/HBoxContainer2/Dir_path'
+	var dir_open = $VBoxContainer/HBoxContainer4/Dir_path
 	if platform == 'Web':
 		dir_open.visible = false
 	else:

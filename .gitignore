@@ -1,6 +1,9 @@
 .godot
 *.import
 data
+token
+tokens
 *.gif
+*.tmp
 */ImageMagick/ImageMagick_Linux/*
 */ImageMagick/ImageMagick_Windows/*
