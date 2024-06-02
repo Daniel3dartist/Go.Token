@@ -21,9 +21,12 @@ func _ready():
 	BASE_PATH = GetPath.get_dir_path()
 	if platform == 'Android':
 		BASE_PATH = 'Pictures'
+	elif platform == "Web":
+		var label_suported_files:Label = $Panel/HBoxContainer/Panel/CenterContainer/Label
+		label_suported_files.text="Drop your file here.\n( JPG, PNG, WEBP, TGA, BMP)"
 	var dir_open = $'ColorRect/HBoxContainer/Dir'	
 	get_tree().get_root().connect("files_dropped", Callable(self, "_on_files_dropped"))
-	await gif_builder.clean_cach()
+	await gif_builder.clean_cache()
 	init_setup()
 
 func make_dir(dir_path):
@@ -35,7 +38,7 @@ func make_dir(dir_path):
 
 
 func init_setup():
-	var dirs_to_setup: Array = ['token', 'data', 'temp', 'img']
+	var dirs_to_setup: Array = ['tokens', 'data', 'temp', 'img']
 	var path_incremental: String
 	for i in range(0,len(dirs_to_setup)):
 		if i < 1:
@@ -179,27 +182,31 @@ func _on_Save_Button_button_up():
 	save_panel.get_node('VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport/CenterContainer/Token_TextureRect').material = Token.material
 	centerc.visible = true
 	centerc.add_child(save_panel)
-	var dir_button = save_panel.get_node('VBoxContainer/HBoxContainer2/Dir_path')
+	var dir_button = save_panel.get_node('VBoxContainer/HBoxContainer4/Dir_path')
 	dir_button.connect("button_up", Callable(self, "_on_Dir_button_up"))
+	dir_button.connect("button_up", Callable(self, "_on_Dir_path_button_up"))
 	
-	centerc.get_node("save_panel/VBoxContainer/HBoxContainer2/LineEdit").text = 'token'
-	save_panel.get_node("VBoxContainer/HBoxContainer2/Save_PNG_Token_File_button").connect("button_up", Callable(self, "_on_Save_PNG_Token_File_button_up"))
-	save_panel.get_node("VBoxContainer/HBoxContainer2/Dir_path").connect("button_up", Callable(self, "_on_Dir_path_button_up"))
+	centerc.get_node("save_panel/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer/LineEdit").text = 'token'
+	save_panel.get_node("VBoxContainer/HBoxContainer4/Save_PNG_Token_File_button").connect("button_up", Callable(self, "_on_Save_Token_File_button_up"))
 
 
 func _on_Dir_button_up():
 	_Open_Dir()
 
 
-func _on_Save_PNG_Token_File_button_up():
-	var file_name = self.get_node("CenterContainer").get_node("save_panel/VBoxContainer/HBoxContainer2/LineEdit").text
-	var save_path
-	if file_name.substr(file_name.length() - 4, -1) == '.png':
-		pass
+func _on_Save_Token_File_button_up():
+	var file_type = self.get_node("CenterContainer").get_node("save_panel/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer2/Image_Type_Selector").text.substr(0,3)
+	var file_name = self.get_node("CenterContainer").get_node("save_panel/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer/LineEdit").text
+	if file_type != "GIF":
+		var save_path
+		if file_name.substr(file_name.length() - 4, -1) == '.png':
+			pass
+		else:
+			file_name = file_name + '.png'
+		save_path = BASE_PATH + '/tokens/%s' % file_name
+		_Save_Token(file_name)
 	else:
-		file_name = file_name + '.png'
-	save_path = BASE_PATH + '/tokens/%s' % file_name
-	_Save_Token(file_name)
+		gif_builder.join_frames(file_name)
 
 	
 

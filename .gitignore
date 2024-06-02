@@ -2,6 +2,7 @@
 *.import
 data
 token
+tokens
 *.gif
 *.tmp
 */ImageMagick/ImageMagick_Linux/*

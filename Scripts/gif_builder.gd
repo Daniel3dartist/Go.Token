@@ -23,8 +23,8 @@ func split_frames(path, file_name):
 	#return [temp_dir, file.replace(".gif", ""), ".png"]
 
 func join_frames(file)->String:
-	var _path = temp_dir+file
-	var command = "convert {0}*.png {1}".format([temp_dir, _path])
+	var _path = PATH+'/tokens/'+file
+	var command = "convert {0}*.png {1}.gif".format([temp_dir, _path])
 	shell_exec(command)
 	return _path
 
@@ -34,7 +34,7 @@ func get_image_sequence():
 	return [temp_dir, files]
 
 
-func clean_cach()->void:
+func clean_cache()->void:
 	var files = await get_image_sequence()[1]
 	if len(files) > 0:
 		var dir = DirAccess.open(temp_dir)
