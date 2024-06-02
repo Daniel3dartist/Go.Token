@@ -137,13 +137,21 @@ func _Save_Token(file_name, type):
 					#print("My I: ",img_sequece[0]+i)
 					tex.append(load_external_tex(img_sequece[0]+i)[0])
 				for x in tex:
+					var hidden_viewport = load("res://Scenes/viewport_save_token.tscn").instantiate()
+					var spaw_point = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/HiddenViewport_spaw'
+					spaw_point.add_child(hidden_viewport)
+					viewport = spaw_point.get_child(0).get_child(0)
+					print("Is VIEWPORT? ", viewport)
+					img = viewport.get_viewport().get_texture().get_image()
+					_token = spaw_point.get_node('ViewportContainer/SubViewport/CenterContainer/Token_TextureRect')
 					_token.material.set_shader_parameter('tex_frg_2' , x)
-					count+=1
-					viewport = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport'
 					var temp_save_path = gif_builder.temp_dir+'/token_img/token%s.png'%count
 					await img.save_png(temp_save_path)
-					await get_tree().create_timer(0.03).timeout
+					await get_tree().create_timer(1).timeout
+					count+=1
+					spaw_point.get_child(0).queue_free()
 					
+				
 				gif_builder.join_frames(file_name)
 			else:
 				print('saving')

@@ -44,3 +44,10 @@ func _on_ColorRect_mouse_entered():
 
 func _on_ColorRect_mouse_exited():
 	is_block = true
+
+
+func _on_save_png_token_file_button_button_up():
+	pass
+	#var spaw_point = $save_panel/VBoxContainer/HBoxContainer/CenterContainer/HiddenViewport_spaw
+	
+	#spaw_point.add_child(viewport)
