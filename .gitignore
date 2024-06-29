@@ -5,5 +5,5 @@ token
 tokens
 *.gif
 *.tmp
-*/ImageMagick/ImageMagick_Linux/*
-*/ImageMagick/ImageMagick_Windows/*
+*ImageMagick_Linux
+*ImageMagick_Windows

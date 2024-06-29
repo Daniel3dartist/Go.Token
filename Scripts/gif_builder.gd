@@ -17,7 +17,7 @@ func split_frames(path, file_name):
 	var is_formated = file_name.split('.')
 	if len(is_formated) > 1 and is_formated[1] == ".gif":
 		file_name=file_name.replace(".gif", "")
-	var command = "convert {0} -coalesce {1}/img/{2}%05d.png".format([path, temp_dir, file_name]) 
+	var command = "magick {0} -coalesce {1}/img/{2}%05d.png".format([path, temp_dir, file_name]) 
 	print(command)
 	shell_exec(command)
 	#return [temp_dir, file.replace(".gif", ""), ".png"]

@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=3 uid="uid://b5sos2lypm5lk"]
 
 [ext_resource type="Shader" path="res://shader/Token_Shader.gdshader" id="1"]
-[ext_resource type="Texture2D" uid="uid://02vb8ugkwkl1" path="res://Assets/close-line-icon.png" id="2_yckk0"]
+[ext_resource type="Texture2D" uid="uid://dyvkd8g13tg4" path="res://Assets/close-line-icon.png" id="2_yckk0"]
 [ext_resource type="Script" path="res://Scripts/save_panel.gd" id="3"]
-[ext_resource type="Texture2D" uid="uid://denywxsku0npc" path="res://Assets/Char_Base_Image_300x300p.png" id="3_nqwbi"]
-[ext_resource type="Texture2D" uid="uid://i0fwgxcay80h" path="res://Assets/save-icon.png" id="5_malpd"]
+[ext_resource type="Texture2D" uid="uid://po6td0f6nlbk" path="res://Assets/Char_Base_Image_300x300p.png" id="3_nqwbi"]
+[ext_resource type="Texture2D" uid="uid://badwpbulgil7y" path="res://Assets/save-icon.png" id="5_malpd"]
 [ext_resource type="Script" path="res://Scripts/image_type_selector.gd" id="5_o150g"]
 [ext_resource type="Script" path="res://Scripts/Save_PNG_Token_File_button.gd" id="6"]
-[ext_resource type="Texture2D" uid="uid://bx1l2jfkcsurd" path="res://Assets/open-folder-outline-icon.png" id="6_rs0up"]
+[ext_resource type="Texture2D" uid="uid://d2sqg7l4a15wa" path="res://Assets/open-folder-outline-icon.png" id="6_rs0up"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxmmy"]
 bg_color = Color(0.207843, 0.207843, 0.207843, 1)
@@ -18,8 +18,8 @@ shader_parameter/outline_color = Color(1, 1, 0, 1)
 shader_parameter/inner_circle = 0.45
 shader_parameter/outer_circle = 0.5
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
-shader_parameter/inner_shadow = 0.35
-shader_parameter/outer_shadow = 0.6
+shader_parameter/inner_shadow = 0.49
+shader_parameter/outer_shadow = 0.5
 shader_parameter/uvs_x = 1.0
 shader_parameter/uvs_y = 1.0
 shader_parameter/uvm_x = 0.0
@@ -101,7 +101,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ViewportContainer2" type="SubViewportContainer" parent="VBoxContainer/HBoxContainer/CenterContainer"]
-visible = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -112,7 +111,7 @@ stretch = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(300, 300)
-render_target_update_mode = 0
+render_target_update_mode = 4
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport"]
 offset_right = 40.0

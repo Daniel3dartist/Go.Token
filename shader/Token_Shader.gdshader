@@ -7,8 +7,8 @@ uniform float inner_circle=0.45;
 uniform float outer_circle=0.5;
 
 uniform vec4 shadow_color:source_color = vec4(0.0,0.0,0.0,1.0);
-uniform float inner_shadow= 0.35;
-uniform float outer_shadow= 0.6;
+uniform float inner_shadow= 0.49;
+uniform float outer_shadow= 0.5;
 
 uniform float uvs_x;
 uniform float uvs_y;
