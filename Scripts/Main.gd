@@ -9,6 +9,7 @@ var app_name = 'org.godotengine.gotoken'
 
 @onready var TexRect = $'Panel/HBoxContainer/Panel/CenterContainer/Char_Image'
 @onready var Token = $'Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect'
+@onready var Token_Ring = $Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring
 @onready var _Panel = $'Panel/HBoxContainer/Panel'
 
 @onready var savepanel = preload("res://Scenes/save_panel.tscn")
@@ -100,23 +101,12 @@ func load_char_image(path):
 					Token.material.set_shader_parameter('tex_frg_2' , valid_image[0])
 
 				await get_tree().create_timer(0.03).timeout
-var n =1
-var gif 
-var imgs = []
-var _spaw_point_
-var _token_
-			
-		
-			
-	
+
 
 func _Save_Token(file_name, type):
-	imgs = gif_builder.get_image_sequence('img')
-	_spaw_point_ = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/HiddenViewport_spaw'
 	#$Label.text = platform
 	var viewport = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport'
 	var _token = viewport.get_node("CenterContainer/Token_TextureRect")
-	_token_ = _token
 	
 	var img = viewport.get_viewport().get_texture().get_image()
 #	img.flip_y()
@@ -230,8 +220,12 @@ func _on_Save_Button_button_up():
 	var path = BASE_PATH + '/tokens/token.png'
 	var save_panel = savepanel.instantiate()
 	var centerc =  self.get_node('CenterContainer')
-	
-	save_panel.get_node('VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport/CenterContainer/Token_TextureRect').material = Token.material
+	var outline_color = Token_Ring.material.get_shader_parameter('outline_color')
+	var inner_cicle_color = Token_Ring.material.get_shader_parameter('inner_cicle_color')
+	var to_save_token = save_panel.get_node('VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport/CenterContainer/Token_TextureRect')
+	to_save_token.material = Token.material
+	to_save_token.material.set_shader_parameter('outline_color', outline_color)
+	to_save_token.material.set_shader_parameter('inner_cicle_color', inner_cicle_color)
 	centerc.visible = true
 	centerc.add_child(save_panel)
 	var dir_button = save_panel.get_node('VBoxContainer/HBoxContainer4/Dir_path')

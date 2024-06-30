@@ -14,9 +14,9 @@ func _ready():
 	main_root.connect("img_sz", Callable(self, "on_img_sz"))
 	var base_color = Color('#596b6f')
 	color_picker.color = base_color
-	self.material.set_shader_parameter('outline_color' , base_color)
+	self.material.set_shader_parameter('inner_cicle_color' , base_color)
 	self.material.set_shader_parameter('inner_circle' , 0.45)
-	self.material.set_shader_parameter('shadow_color' ,Color('#00303030'))
+	self.material.set_shader_parameter('outline_color' ,Color('#00303030'))
 
 
 func on_img_sz(_size):
