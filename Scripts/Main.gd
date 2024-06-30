@@ -100,13 +100,24 @@ func load_char_image(path):
 					Token.material.set_shader_parameter('tex_frg_2' , valid_image[0])
 
 				await get_tree().create_timer(0.03).timeout
-
-
+var n =1
+var gif 
+var imgs = []
+var _spaw_point_
+var _token_
+			
+		
+			
+	
 
 func _Save_Token(file_name, type):
+	imgs = gif_builder.get_image_sequence('img')
+	_spaw_point_ = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/HiddenViewport_spaw'
 	#$Label.text = platform
 	var viewport = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport'
 	var _token = viewport.get_node("CenterContainer/Token_TextureRect")
+	_token_ = _token
+	
 	var img = viewport.get_viewport().get_texture().get_image()
 #	img.flip_y()
 	var path = BASE_PATH + 'tokens/'
@@ -136,27 +147,33 @@ func _Save_Token(file_name, type):
 				for i in img_sequece[1]:
 					#print("My I: ",img_sequece[0]+i)
 					tex.append(load_external_tex(img_sequece[0]+i)[0])
+				Engine.max_fps = 60
 				for x in tex:
-					var hidden_viewport = load("res://Scenes/viewport_save_token.tscn").instantiate()
-					var spaw_point = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/HiddenViewport_spaw'
-					spaw_point.add_child(hidden_viewport)
-					viewport = spaw_point.get_child(0).get_child(0)
+					#var hidden_viewport = load("res://Scenes/viewport_save_token.tscn").instantiate()
+					#var spaw_point = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/HiddenViewport_spaw'
+					#spaw_point.add_child(hidden_viewport)
+					#viewport = spaw_point.get_child(0).get_child(0)
 					print("Is VIEWPORT? ", viewport)
 					img = viewport.get_viewport().get_texture().get_image()
-					_token = spaw_point.get_node('ViewportContainer/SubViewport/CenterContainer/Token_TextureRect')
+					#_token = spaw_point.get_node('ViewportContainer/SubViewport/CenterContainer/Token_TextureRect')
 					_token.material.set_shader_parameter('tex_frg_2' , x)
-					var temp_save_path = gif_builder.temp_dir+'/token_img/token%s.png'%count
+					await get_tree().create_timer(2).timeout
+					var zeros = '0'.repeat(5-len(str(count)))
+					zeros+='%s'%count
+					var temp_save_path = gif_builder.temp_dir+'/token_img/token%s.png'%zeros
+					
 					await img.save_png(temp_save_path)
 					await get_tree().create_timer(1).timeout
 					count+=1
-					spaw_point.get_child(0).queue_free()
+					#spaw_point.get_child(0).queue_free()
+				Engine.max_fps = 120
 					
 				
 				gif_builder.join_frames(file_name)
 			else:
 				print('saving')
 				img.save_png(str(path + file_name))
-
+			gif_builder.clean_cache()
 
 func _Open_Dir():
 	OS.shell_open(BASE_PATH + '/tokens')
@@ -166,8 +183,10 @@ func load_external_tex(path):
 	var split_key:String = "/"
 	if not split_key in path:
 		split_key = "\\"
+	print("PATH", path)
 	var file = path.split(split_key)[-1]
 	file = file.split(".")
+	print("MY FILE: ", file)
 	var file_name = file[0]
 	var file_type = file[1].to_lower()
 	var formats = ['png', 'jpg', 'jpeg', 'bmp', 'tga','webp']

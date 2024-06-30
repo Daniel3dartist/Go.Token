@@ -17,14 +17,14 @@ func split_frames(path, file_name):
 	var is_formated = file_name.split('.')
 	if len(is_formated) > 1 and is_formated[1] == ".gif":
 		file_name=file_name.replace(".gif", "")
-	var command = "magick {0} -coalesce {1}/img/{2}%05d.png".format([path, temp_dir, file_name]) 
+	var command = "magick {0} -coalesce {1}/img/{2}%0005d.png".format([path, temp_dir, file_name]) 
 	print(command)
 	shell_exec(command)
 	#return [temp_dir, file.replace(".gif", ""), ".png"]
 
 func join_frames(file)->String:
 	var _path = PATH+'/tokens/'+file
-	var command = "convert {0}*.png {1}.gif".format([(temp_dir+"/token_img/"), _path])
+	var command = "magick {0}*.png {1}.gif".format([(temp_dir+"/token_img/"), _path])
 	shell_exec(command)
 	return _path
 
