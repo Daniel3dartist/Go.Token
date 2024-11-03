@@ -13,7 +13,7 @@ ImageMagick is a popular cross-platform open source software made for manipulati
 
 Since GO.Token is cross-platform, we need to download the files for Windows and Linux. Download using the links below:
 
-- [Windows](https://imagemagick.org/archive/binaries/ImageMagick-7.1.1-32-portable-Q16-HDRI-x64.zip)
+- [Windows](https://imagemagick.org/archive/binaries/ImageMagick-7.1.1-39-portable-Q16-x64.zip)
 - [Linux](https://imagemagick.org/archive/binaries/magick)
 
 ### Windows
