@@ -82,7 +82,7 @@ func _on_X_Position_Input_HSlider_value_changed(value):
 
 
 func _on_ColorPickerButton_color_changed(color):
-	self.material.set_shader_parameter('outline_color' , color)
+	self.material.set_shader_parameter('inner_cicler_color' , color)
 
 
 func _on_RingSize_value_changed(value):

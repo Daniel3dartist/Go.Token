@@ -268,14 +268,15 @@ size = Vector2i(300, 300)
 render_target_update_mode = 0
 
 [node name="Node2D" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/SubViewportContainer/SubViewport" instance=ExtResource("10_tps5c")]
-visible = false
 
 [node name="Node3D" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/SubViewportContainer/SubViewport" instance=ExtResource("10_syasy")]
+visible = false
 
 [node name="MeshInstance3D" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/SubViewportContainer/SubViewport/Node3D" index="1"]
 visible = true
 
 [node name="Token_Ring" type="TextureRect" parent="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
+visible = false
 material = ExtResource("8_b8yo7")
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
@@ -597,6 +598,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(74, 31)
 layout_mode = 2
 icon_alignment = 1
+color = Color(0.544974, 0.544974, 0.544974, 1)
 
 [node name="VSeparator" type="VSeparator" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer"]
 layout_mode = 2
@@ -779,7 +781,8 @@ grow_vertical = 2
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer3/VBoxContainer3/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_ShadowSize_value_changed"]
 [connection signal="color_changed" from="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer4/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_ColorPickerButton_color_changed"]
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer5/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_RingSize_value_changed"]
-[connection signal="color_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer4/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_ColorPickerButton_color_changed"]
+[connection signal="color_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer4/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_ColorPickerButton_color_changed"]
+[connection signal="color_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer4/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_color_picker_button_color_changed"]
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer5/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_RingSize_value_changed"]
 [connection signal="toggled" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6/CenterContainer/CheckButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_CheckButton_Outline_toggled"]
 [connection signal="button_up" from="ColorRect/HBoxContainer/Save_Button" to="." method="_on_Save_Button_button_up"]
