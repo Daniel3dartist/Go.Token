@@ -82,7 +82,7 @@ func _on_X_Position_Input_HSlider_value_changed(value):
 
 
 func _on_ColorPickerButton_color_changed(color):
-	self.material.set_shader_parameter('outline_color' , color)
+	self.material.set_shader_parameter('inner_cicler_color' , color)
 
 
 func _on_RingSize_value_changed(value):
@@ -95,9 +95,9 @@ func _on_RingSize_value_changed(value):
 
 func _on_CheckButton_Outline_toggled(button_pressed):
 	if button_pressed == true:
-		self.material.set_shader_parameter('shadow_color' , Color('#303030'))
+		self.material.set_shader_parameter('outline_color' , Color('#303030'))
 	else:
-		self.material.set_shader_parameter('shadow_color' , Color('#00303030'))
+		self.material.set_shader_parameter('outline_color' , Color('#00303030'))
 
 
 func _on_y_scale_input_v_slider_gui_input(event):

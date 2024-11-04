@@ -1,16 +1,16 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dj83x4rj7sjlx"]
 
-[ext_resource type="Shader" path="res://shader/Token_Shader.gdshader" id="1_04hea"]
+[ext_resource type="Shader" path="res://shader/Ring_Shader.gdshader" id="1_0io33"]
 [ext_resource type="Texture2D" uid="uid://ig305i8avg4r" path="res://Assets/sample_img.png" id="2_4rbsx"]
 
 [resource]
-shader = ExtResource("1_04hea")
-shader_parameter/inner_cicler_color = Color(1, 1, 0, 1)
+shader = ExtResource("1_0io33")
+shader_parameter/inner_cicle_color = Color(0.744225, 0.668093, 0.699209, 1)
 shader_parameter/inner_circle = 0.45
 shader_parameter/outer_circle = 0.5
-shader_parameter/outline_color = Color(0, 0, 0, 0)
-shader_parameter/inner_outline = 0.49
-shader_parameter/outer_outline = 0.5
+shader_parameter/shadow_color = Color(0, 0, 0, 0)
+shader_parameter/inner_shadow = 0.35
+shader_parameter/outer_shadow = 0.6
 shader_parameter/uvs_x = 1.0
 shader_parameter/uvs_y = 1.0
 shader_parameter/uvm_x = 0.0
