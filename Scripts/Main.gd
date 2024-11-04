@@ -16,6 +16,7 @@ var app_name = 'org.godotengine.gotoken'
 @onready var GetPath = preload("res://Scripts/get_path.gd").new()
 @onready var gif_builder=preload("res://Scripts/gif_builder.gd").new()
 
+var is_safe:bool=false
 
 #tmp_js_export
 func _ready():
@@ -28,7 +29,7 @@ func _ready():
 	var dir_open = $'ColorRect/HBoxContainer/Dir'
 	await init_setup()
 	get_tree().get_root().connect("files_dropped", Callable(self, "_on_files_dropped"))
-	await gif_builder.clean_cache()
+	await garbage_collector()
 
 func make_dir(dir_path):
 	var dir : DirAccess = DirAccess.open(BASE_PATH)
@@ -51,8 +52,13 @@ func init_setup():
 			for x in dirs_to_setup[3]:
 				make_dir(path_incremental+x+'/')
 
+func garbage_collector() -> bool:
+	const END:bool = true
+	gif_builder.clean_cache()
+	return END
 
 func _on_files_dropped(files):
+	is_safe=false
 	var vx = _Panel.get_global_position().x + _Panel.size.x
 	var vy = _Panel.get_global_position().y + _Panel.size.y
 	if get_global_mouse_position().x <= vx and get_global_mouse_position().x >= vx - _Panel.size.x and get_global_mouse_position().y <= vy and get_global_mouse_position().x >= vy - _Panel.size.y:
@@ -63,6 +69,7 @@ func _on_files_dropped(files):
 		image_name = PATH.split('\\')
 		image_name = '/%s' % image_name[-1]
 		print('\n\nImage_name\n\n', image_name, '\n\n')
+		#gif_builder.remove_conflict(image_name.replace('/', '').split('.')[0])
 		load_char_image(PATH)
 	
 
@@ -81,26 +88,30 @@ func load_char_image(path):
 		img_tipe_label.visible = false
 		Token.material.set_shader_parameter('tex_frg_2' , valid_image)
 	else:
-		var files:Array = gif_builder.get_image_sequence()
-		img_tipe_label.visible = false
-		TexRect.material = null
-		while true:
-			var is_saving = self.get_node('CenterContainer').get_node('save_panel')
-			if is_saving != null:
-				break
-			for i in range(0 , len(files[1])):
-				#valid_image = load_external_tex(files[0]+i)
-				print(files[0]+files[1][i])
-				if files[1][i].split('.')[-1] == "png":
-					valid_image = load_external_tex(files[0]+files[1][i])
-					tex=valid_image[0]
-					#var self_div = tex.get_size()[0] - tex.get_size()[1]
-					#var ref_div = [(tex.get_size()[0]/500)*0.1, (500/tex.get_size()[1])*1.0]
-					#emit_signal('img_sz', tex.get_size())
-					TexRect.texture = tex
-					Token.material.set_shader_parameter('tex_frg_2' , valid_image[0])
+		is_safe=true
+		run_img_sequece(TexRect, img_tipe_label, valid_image, tex)
+		
+func run_img_sequece(TexRect, img_tipe_label, valid_image, tex):
+	var files:Array = gif_builder.get_image_sequence()
+	img_tipe_label.visible = false
+	TexRect.material = null
+	while is_safe==true:
+		var is_saving = self.get_node('CenterContainer').get_node('save_panel')
+		if is_saving != null:
+			break
+		for i in range(0 , len(files[1])):
+			#valid_image = load_external_tex(files[0]+i)
+			print(files[0]+files[1][i])
+			if files[1][i].split('.')[-1] == "png":
+				valid_image = load_external_tex(files[0]+files[1][i])
+				tex=valid_image[0]
+				#var self_div = tex.get_size()[0] - tex.get_size()[1]
+				#var ref_div = [(tex.get_size()[0]/500)*0.1, (500/tex.get_size()[1])*1.0]
+				#emit_signal('img_sz', tex.get_size())
+				TexRect.texture = tex
+				Token.material.set_shader_parameter('tex_frg_2' , valid_image[0])
 
-				await get_tree().create_timer(0.03).timeout
+			await get_tree().create_timer(0.03).timeout
 
 
 func _Save_Token(file_name, type):

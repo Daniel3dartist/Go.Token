@@ -34,6 +34,14 @@ func get_image_sequence(dir_name='img'):
 	var files = dir.get_files()
 	return [_temp_dir, files]
 
+func remove_conflict(file_name:String) -> void:
+	var files = await get_image_sequence()[1]
+	if len(files) > 0:
+		var dir = DirAccess.open(temp_dir+'/%s/'%'img')
+		for x in files:
+			print('X: ', x)
+			if not file_name in x:
+				dir.remove(x)
 
 func clean_cache()->void:
 	var dirs = ['img', 'token_img']
