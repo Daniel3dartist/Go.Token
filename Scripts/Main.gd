@@ -62,7 +62,6 @@ func _on_files_dropped(files):
 	var vx = _Panel.get_global_position().x + _Panel.size.x
 	var vy = _Panel.get_global_position().y + _Panel.size.y
 	if get_global_mouse_position().x <= vx and get_global_mouse_position().x >= vx - _Panel.size.x and get_global_mouse_position().y <= vy and get_global_mouse_position().x >= vy - _Panel.size.y:
-		print("Mouse is here!\n")
 		var PATH = files[0]
 		print("\nPATH: %s\n" % PATH.replace("\\", "/"))
 		var image_name

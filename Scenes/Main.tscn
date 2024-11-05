@@ -598,7 +598,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(74, 31)
 layout_mode = 2
 icon_alignment = 1
-color = Color(0.544974, 0.544974, 0.544974, 1)
+color = Color(0.529412, 0.8, 0.360784, 1)
 
 [node name="VSeparator" type="VSeparator" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer"]
 layout_mode = 2
@@ -658,6 +658,7 @@ layout_mode = 2
 [node name="CheckButton" type="CheckButton" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6/CenterContainer"]
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
+button_pressed = true
 icon_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer"]
@@ -783,6 +784,7 @@ grow_vertical = 2
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/PanelV/CenterContainer/VBoxContainer/VBoxContainer5/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_RingSize_value_changed"]
 [connection signal="color_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer4/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_ColorPickerButton_color_changed"]
 [connection signal="color_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer4/CenterContainer/ColorPickerButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_color_picker_button_color_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer5/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_RingSize_value_changed"]
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer5/CenterContainer/SpinBox" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_RingSize_value_changed"]
 [connection signal="toggled" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6/CenterContainer/CheckButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_CheckButton_Outline_toggled"]
 [connection signal="toggled" from="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6/CenterContainer/CheckButton" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_Ring" method="_on_CheckButton_Outline_toggled"]
