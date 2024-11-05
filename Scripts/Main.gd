@@ -112,8 +112,12 @@ func run_img_sequece(TexRect, img_tipe_label, valid_image, tex):
 
 			await get_tree().create_timer(0.03).timeout
 
-
+#$"."
 func _Save_Token(file_name, type):
+	var main_scene=$"."
+	var saving_panel=load("res://Scenes/saving_panel.tscn")
+	var saving_panel_instance=saving_panel.instantiate()
+	main_scene.add_child(saving_panel_instance)
 	#$Label.text = platform
 	var viewport = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport'
 	var _token = viewport.get_node("CenterContainer/Token_TextureRect")
