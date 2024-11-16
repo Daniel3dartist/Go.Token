@@ -279,6 +279,3 @@ func _on_Save_Token_File_button_up():
 		_Save_Token(file_name, file_type)
 
 	
-
-
-
