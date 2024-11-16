@@ -6,6 +6,7 @@ var os = OS.get_name()
 
 var path = PATH+"/dependency/ImageMagick/ImageMagick_{0}/".format([os])
 var temp_dir = PATH+"data/temp"
+var loaded_img_name:String
 
 func shell_exec(command)->void:
 	print(os)
@@ -35,15 +36,17 @@ func get_image_sequence(dir_name='img'):
 	return [_temp_dir, files]
 
 func remove_conflict(file_name:String) -> void:
-	var files = await get_image_sequence()[1]
-	if len(files) > 0:
-		var dir = DirAccess.open(temp_dir+'/%s/'%'img')
-		for x in files:
+	var files = await get_image_sequence('img')
+	print('FILES: ',files)
+	if len(files[1]) > 0:
+		var dir = DirAccess.open(files[0])
+		for x in files[1]:
 			print('X: ', x)
+			dir.remove(x)
 			if not file_name in x:
 				dir.remove(x)
 
-func clean_cache()->void:
+func clean_cache()->bool:
 	var dirs = ['img', 'token_img']
 	for i in dirs:
 		var files = await get_image_sequence(i)[1]
@@ -51,3 +54,4 @@ func clean_cache()->void:
 			var dir = DirAccess.open(temp_dir+'/%s/'%i)
 			for x in files:
 				dir.remove(x)
+	return true

@@ -29,7 +29,7 @@ func _ready():
 	var dir_open = $'ColorRect/HBoxContainer/Dir'
 	await init_setup()
 	get_tree().get_root().connect("files_dropped", Callable(self, "_on_files_dropped"))
-	await garbage_collector()
+	await gif_builder.clean_cache()
 
 func make_dir(dir_path):
 	var dir : DirAccess = DirAccess.open(BASE_PATH)
@@ -52,28 +52,32 @@ func init_setup():
 			for x in dirs_to_setup[3]:
 				make_dir(path_incremental+x+'/')
 
-func garbage_collector() -> bool:
-	const END:bool = true
-	gif_builder.clean_cache()
-	return END
 
 func _on_files_dropped(files):
-	is_safe=false
-	var vx = _Panel.get_global_position().x + _Panel.size.x
-	var vy = _Panel.get_global_position().y + _Panel.size.y
-	if get_global_mouse_position().x <= vx and get_global_mouse_position().x >= vx - _Panel.size.x and get_global_mouse_position().y <= vy and get_global_mouse_position().x >= vy - _Panel.size.y:
-		var PATH = files[0]
-		print("\nPATH: %s\n" % PATH.replace("\\", "/"))
-		var image_name
-		image_name = PATH.split('\\')
-		image_name = '/%s' % image_name[-1]
-		print('\n\nImage_name\n\n', image_name, '\n\n')
-		#gif_builder.remove_conflict(image_name.replace('/', '').split('.')[0])
-		load_char_image(PATH)
+	var is_cleaned:bool = true
+	if gif_builder.loaded_img_name != null:
+		is_safe = false
+		is_cleaned = false
+		gif_builder.remove_conflict(gif_builder.loaded_img_name)
+	is_cleaned=true
+	if is_cleaned == true:
+		is_safe=false
+		var vx = _Panel.get_global_position().x + _Panel.size.x
+		var vy = _Panel.get_global_position().y + _Panel.size.y
+		if get_global_mouse_position().x <= vx and get_global_mouse_position().x >= vx - _Panel.size.x and get_global_mouse_position().y <= vy and get_global_mouse_position().x >= vy - _Panel.size.y:
+			var PATH = files[0]
+			print("\nPATH: %s\n" % PATH.replace("\\", "/"))
+			var image_name
+			image_name = PATH.split('\\')
+			image_name = '/%s' % image_name[-1]
+			print('\n\nImage_name\n\n', image_name, '\n\n')
+			#gif_builder.remove_conflict(image_name.replace('/', '').split('.')[0])
+			load_char_image(PATH)
 	
 
 func load_char_image(path):
 	var img_tipe_label = $Panel/HBoxContainer/Panel/CenterContainer/Label
+	print('PATH: ', path)
 	var valid_image = load_external_tex(path)
 	var tex = Texture2D.new()
 	if valid_image[1] != false:
@@ -94,22 +98,27 @@ func run_img_sequece(TexRect, img_tipe_label, valid_image, tex):
 	var files:Array = gif_builder.get_image_sequence()
 	img_tipe_label.visible = false
 	TexRect.material = null
+	var img_sequence_texs:Array=[]
+	for i in range(0 , len(files[1])):
+		#valid_image = load_external_tex(files[0]+i)
+		print(files[0]+files[1][i])
+		if files[1][i].split('.')[-1] == "png":
+			print('foi aqui que parou')
+			print('file 0 : ',files[0], '\nfile 1: ',files[1][i])
+			valid_image = load_external_tex(files[0]+files[1][i])
+			img_sequence_texs.append(valid_image[0])
+	print('img_sequence_tex: ',img_sequence_texs)
 	while is_safe==true:
 		var is_saving = self.get_node('CenterContainer').get_node('save_panel')
 		if is_saving != null:
 			break
-		for i in range(0 , len(files[1])):
-			#valid_image = load_external_tex(files[0]+i)
-			print(files[0]+files[1][i])
-			if files[1][i].split('.')[-1] == "png":
-				valid_image = load_external_tex(files[0]+files[1][i])
-				tex=valid_image[0]
+		
 				#var self_div = tex.get_size()[0] - tex.get_size()[1]
 				#var ref_div = [(tex.get_size()[0]/500)*0.1, (500/tex.get_size()[1])*1.0]
 				#emit_signal('img_sz', tex.get_size())
-				TexRect.texture = tex
-				Token.material.set_shader_parameter('tex_frg_2' , valid_image[0])
-
+		for i in img_sequence_texs:
+			TexRect.texture = i
+			Token.material.set_shader_parameter('tex_frg_2' , i)
 			await get_tree().create_timer(0.03).timeout
 
 #$"."
@@ -192,6 +201,7 @@ func load_external_tex(path):
 	file = file.split(".")
 	print("MY FILE: ", file)
 	var file_name = file[0]
+	gif_builder.loaded_img_name=file_name
 	var file_type = file[1].to_lower()
 	var formats = ['png', 'jpg', 'jpeg', 'bmp', 'tga','webp']
 	var is_valid: bool 
