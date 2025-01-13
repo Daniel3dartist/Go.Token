@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://0yhu23v481bt"]
 
 [ext_resource type="Material" uid="uid://dj83x4rj7sjlx" path="res://shader/ring_shader.tres" id="1_rt8u8"]
-[ext_resource type="Texture2D" uid="uid://denywxsku0npc" path="res://Assets/Char_Base_Image_300x300p.png" id="2_na2tx"]
-[ext_resource type="Texture2D" uid="uid://bep7rqunk1f1w" path="res://Assets/img_to_test/PLayer_Itensaseprite02.png" id="3_8ofll"]
+[ext_resource type="Texture2D" uid="uid://po6td0f6nlbk" path="res://Assets/Char_Base_Image_300x300p.png" id="2_na2tx"]
+[ext_resource type="Texture2D" uid="uid://djy5opocm74e6" path="res://Assets/img_to_test/PLayer_Itensaseprite02.png" id="3_8ofll"]
 [ext_resource type="Script" path="res://Scripts/SpriteSheet.gd" id="4_e77ct"]
 
 [node name="Control" type="Control"]

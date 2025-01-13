@@ -195,6 +195,39 @@ func _Save_Token(file_name, type):
 func _Open_Dir():
 	OS.shell_open(BASE_PATH + '/tokens')
 
+func requests(data:Array):
+	# Create an HTTP request node and connect its completion signal.
+	var url:String = 'http://localhost/gif-manager/'
+	var http_request = HTTPRequest.new()
+
+	add_child(http_request)
+	http_request.request_completed.connect(self._http_request_completed)
+	
+	var body = JSON.new().stringify({'files': data})
+	
+	var error = await http_request.request(url, [], HTTPClient.METHOD_POST, body)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+	return
+
+# Called when the HTTP request is completed.
+func _http_request_completed(result, response_code, headers, body):
+	if result != HTTPRequest.RESULT_SUCCESS:
+		push_error("Image couldn't be downloaded. Try a different image.")
+
+	var image = Image.new()
+	var error = image.load_png_from_buffer(body['files'][0])
+	if error != OK:
+		push_error("Couldn't load the image.")
+
+	var texture = ImageTexture.create_from_image(image)
+	image.save_png('res://minha_imagem.png')
+
+	# Display the image in a TextureRect node.
+	var texture_rect = TextureRect.new()
+	add_child(texture_rect)
+	texture_rect.texture = texture
+
 
 func load_external_tex(path):
 	var split_key:String = "/"
@@ -236,6 +269,10 @@ func load_external_tex(path):
 		tex_file.close()
 		return [imgtex, is_valid]
 	elif file_type == "gif":
+		var file_access = FileAccess.open(path, FileAccess.READ)
+		var img_buffer = file_access.get_buffer(file_access.get_length())
+		requests([img_buffer])
+
 		gif_builder.split_frames(path.replace("\\", "/"), file_name)
 		return [null, false]
 	else:
