@@ -28,7 +28,7 @@ void vertex() {
 
 
 void fragment() {
-	
+
 // Texture:2
 	vec2 uv_scale = vec2(uvs_x, uvs_y);
 	vec4 tex_frg_2_read = texture(tex_frg_2, UV * uv_scale);
@@ -48,12 +48,12 @@ void fragment() {
 
 	vec2 origin = UV-vec2(0.5,0.5);
 	float dist =length(origin);
-	
+
 	vec2 uv_offset = vec2(uvm_x, uvm_y);
 	vec4 _color= mix (texture(tex_frg_2,(UV * uv_scale) - uv_offset), inner_cicler_color,smoothstep(inner_circle-smoothness,inner_circle+smoothness,dist));
 	vec4 circle_color = mix (_color,alpha_color,smoothstep(outer_circle-smoothness,outer_circle+smoothness,dist));
 
-	
+
 	COLOR = mix (circle_color, outline,outline.a);//shadow.a +
 
 // Output:0

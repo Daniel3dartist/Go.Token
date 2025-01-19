@@ -30,6 +30,7 @@ func myCallback(args):
 	prints(args)
 	
 func _ready() -> void:
+	JavaScriptBridge.eval("console.log('The version: ', Magick.imageMagickVersion)")
 	JavaScriptBridge.eval("""window.my_int = 13""", true)
 	JavaScriptBridge.eval("""
 		function teste(arr){
