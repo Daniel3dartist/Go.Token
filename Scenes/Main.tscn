@@ -658,7 +658,6 @@ layout_mode = 2
 [node name="CheckButton" type="CheckButton" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6/CenterContainer"]
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
-button_pressed = true
 icon_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer"]
