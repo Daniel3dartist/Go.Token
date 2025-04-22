@@ -658,7 +658,6 @@ layout_mode = 2
 [node name="CheckButton" type="CheckButton" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer/HBoxContainer/VBoxContainer6/CenterContainer"]
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
-button_pressed = true
 icon_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2/PanelH/CenterContainer"]
@@ -770,6 +769,19 @@ anchor_bottom = 1.0
 offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 90.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Teste"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="gui_input" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Scale_Input/X_Scale_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_x_scale_input_h_slider_gui_input"]
 [connection signal="value_changed" from="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/X_Scale_Input/X_Scale_Input_HSlider" to="Panel/HBoxContainer/Panel2/CenterContainer/Token/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/Token_TextureRect" method="_on_X_Scale_Input_HSlider_value_changed"]

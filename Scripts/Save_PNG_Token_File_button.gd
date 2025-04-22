@@ -10,4 +10,3 @@ func _ready():
 		self.get_parent().get_node("Dir").visible = false
 	else:
 		self.icon = load("res://Assets/save-icon.png")
-

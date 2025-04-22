@@ -29,7 +29,7 @@ func _ready():
 	var dir_open = $'ColorRect/HBoxContainer/Dir'
 	await init_setup()
 	get_tree().get_root().connect("files_dropped", Callable(self, "_on_files_dropped"))
-	await garbage_collector()
+	await gif_builder.clean_cache()
 
 func make_dir(dir_path):
 	var dir : DirAccess = DirAccess.open(BASE_PATH)
@@ -52,28 +52,32 @@ func init_setup():
 			for x in dirs_to_setup[3]:
 				make_dir(path_incremental+x+'/')
 
-func garbage_collector() -> bool:
-	const END:bool = true
-	gif_builder.clean_cache()
-	return END
 
 func _on_files_dropped(files):
-	is_safe=false
-	var vx = _Panel.get_global_position().x + _Panel.size.x
-	var vy = _Panel.get_global_position().y + _Panel.size.y
-	if get_global_mouse_position().x <= vx and get_global_mouse_position().x >= vx - _Panel.size.x and get_global_mouse_position().y <= vy and get_global_mouse_position().x >= vy - _Panel.size.y:
-		var PATH = files[0]
-		print("\nPATH: %s\n" % PATH.replace("\\", "/"))
-		var image_name
-		image_name = PATH.split('\\')
-		image_name = '/%s' % image_name[-1]
-		print('\n\nImage_name\n\n', image_name, '\n\n')
-		#gif_builder.remove_conflict(image_name.replace('/', '').split('.')[0])
-		load_char_image(PATH)
+	var is_cleaned:bool = true
+	if gif_builder.loaded_img_name != null:
+		is_safe = false
+		is_cleaned = false
+		gif_builder.remove_conflict(gif_builder.loaded_img_name)
+	is_cleaned=true
+	if is_cleaned == true:
+		is_safe=false
+		var vx = _Panel.get_global_position().x + _Panel.size.x
+		var vy = _Panel.get_global_position().y + _Panel.size.y
+		if get_global_mouse_position().x <= vx and get_global_mouse_position().x >= vx - _Panel.size.x and get_global_mouse_position().y <= vy and get_global_mouse_position().x >= vy - _Panel.size.y:
+			var PATH = files[0]
+			print("\nPATH: %s\n" % PATH.replace("\\", "/"))
+			var image_name
+			image_name = PATH.split('\\')
+			image_name = '/%s' % image_name[-1]
+			print('\n\nImage_name\n\n', image_name, '\n\n')
+			#gif_builder.remove_conflict(image_name.replace('/', '').split('.')[0])
+			load_char_image(PATH)
 	
 
 func load_char_image(path):
 	var img_tipe_label = $Panel/HBoxContainer/Panel/CenterContainer/Label
+	print('PATH: ', path)
 	var valid_image = load_external_tex(path)
 	var tex = Texture2D.new()
 	if valid_image[1] != false:
@@ -88,32 +92,44 @@ func load_char_image(path):
 		Token.material.set_shader_parameter('tex_frg_2' , valid_image)
 	else:
 		is_safe=true
-		run_img_sequece(TexRect, img_tipe_label, valid_image, tex)
+		print('GIF_BUILDER FPS: ', gif_builder.fps)
+		run_img_sequece(TexRect, img_tipe_label, valid_image, tex, gif_builder.fps)
 		
-func run_img_sequece(TexRect, img_tipe_label, valid_image, tex):
+func run_img_sequece(TexRect, img_tipe_label, valid_image, tex, fps:float):
 	var files:Array = gif_builder.get_image_sequence()
 	img_tipe_label.visible = false
 	TexRect.material = null
+	var img_sequence_texs:Array=[]
+	for i in range(0 , len(files[1])):
+		#valid_image = load_external_tex(files[0]+i)
+		print(files[0]+files[1][i])
+		if files[1][i].split('.')[-1] == "png":
+			print('foi aqui que parou')
+			print('file 0 : ',files[0], '\nfile 1: ',files[1][i])
+			valid_image = load_external_tex(files[0]+files[1][i])
+			img_sequence_texs.append(valid_image[0])
+	print('img_sequence_tex: ',img_sequence_texs)
 	while is_safe==true:
 		var is_saving = self.get_node('CenterContainer').get_node('save_panel')
 		if is_saving != null:
 			break
-		for i in range(0 , len(files[1])):
-			#valid_image = load_external_tex(files[0]+i)
-			print(files[0]+files[1][i])
-			if files[1][i].split('.')[-1] == "png":
-				valid_image = load_external_tex(files[0]+files[1][i])
-				tex=valid_image[0]
+		
 				#var self_div = tex.get_size()[0] - tex.get_size()[1]
 				#var ref_div = [(tex.get_size()[0]/500)*0.1, (500/tex.get_size()[1])*1.0]
 				#emit_signal('img_sz', tex.get_size())
-				TexRect.texture = tex
-				Token.material.set_shader_parameter('tex_frg_2' , valid_image[0])
+		for i in img_sequence_texs:
+			TexRect.texture = i
+			Token.material.set_shader_parameter('tex_frg_2' , i)
+			await get_tree().create_timer(fps/100).timeout
 
-			await get_tree().create_timer(0.03).timeout
-
-
+#$"."
 func _Save_Token(file_name, type):
+	var main_scene=$"."
+	var saving_panel=load("res://Scenes/saving_panel.tscn")
+	var saving_panel_instance=saving_panel.instantiate()
+	main_scene.add_child(saving_panel_instance)
+	saving_panel=main_scene.get_node('./Saving_Panel')
+	saving_panel._progress_text()
 	#$Label.text = platform
 	var viewport = $'CenterContainer/save_panel/VBoxContainer/HBoxContainer/CenterContainer/ViewportContainer2/SubViewport'
 	var _token = viewport.get_node("CenterContainer/Token_TextureRect")
@@ -165,6 +181,8 @@ func _Save_Token(file_name, type):
 					await img.save_png(temp_save_path)
 					await get_tree().create_timer(1).timeout
 					count+=1
+					saving_panel._add_value()
+					
 					#spaw_point.get_child(0).queue_free()
 				Engine.max_fps = 120
 					
@@ -178,6 +196,39 @@ func _Save_Token(file_name, type):
 func _Open_Dir():
 	OS.shell_open(BASE_PATH + '/tokens')
 
+func requests(data:Array):
+	# Create an HTTP request node and connect its completion signal.
+	var url:String = 'http://localhost/gif-manager/'
+	var http_request = HTTPRequest.new()
+
+	add_child(http_request)
+	http_request.request_completed.connect(self._http_request_completed)
+	
+	var body = JSON.new().stringify({'files': data})
+	
+	var error = await http_request.request(url, [], HTTPClient.METHOD_POST, body)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+	return
+
+# Called when the HTTP request is completed.
+func _http_request_completed(result, response_code, headers, body):
+	if result != HTTPRequest.RESULT_SUCCESS:
+		push_error("Image couldn't be downloaded. Try a different image.")
+
+	var image = Image.new()
+	var error = image.load_png_from_buffer(body['files'][0])
+	if error != OK:
+		push_error("Couldn't load the image.")
+
+	var texture = ImageTexture.create_from_image(image)
+	image.save_png('res://minha_imagem.png')
+
+	# Display the image in a TextureRect node.
+	var texture_rect = TextureRect.new()
+	add_child(texture_rect)
+	texture_rect.texture = texture
+
 
 func load_external_tex(path):
 	var split_key:String = "/"
@@ -188,6 +239,7 @@ func load_external_tex(path):
 	file = file.split(".")
 	print("MY FILE: ", file)
 	var file_name = file[0]
+	gif_builder.loaded_img_name=file_name
 	var file_type = file[1].to_lower()
 	var formats = ['png', 'jpg', 'jpeg', 'bmp', 'tga','webp']
 	var is_valid: bool 
@@ -218,6 +270,10 @@ func load_external_tex(path):
 		tex_file.close()
 		return [imgtex, is_valid]
 	elif file_type == "gif":
+		var file_access = FileAccess.open(path, FileAccess.READ)
+		var img_buffer = file_access.get_buffer(file_access.get_length())
+		#requests([img_buffer])
+
 		gif_builder.split_frames(path.replace("\\", "/"), file_name)
 		return [null, false]
 	else:
@@ -265,6 +321,3 @@ func _on_Save_Token_File_button_up():
 		_Save_Token(file_name, file_type)
 
 	
-
-
-

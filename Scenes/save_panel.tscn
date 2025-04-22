@@ -180,7 +180,6 @@ alignment = 0
 text_overrun_behavior = 1
 item_count = 2
 popup/item_0/text = "PNG image (*.png)"
-popup/item_0/id = 0
 popup/item_1/text = "GIF image (*.gif)"
 popup/item_1/id = 1
 script = ExtResource("5_o150g")
