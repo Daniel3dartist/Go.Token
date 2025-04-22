@@ -92,9 +92,10 @@ func load_char_image(path):
 		Token.material.set_shader_parameter('tex_frg_2' , valid_image)
 	else:
 		is_safe=true
-		run_img_sequece(TexRect, img_tipe_label, valid_image, tex)
+		print('GIF_BUILDER FPS: ', gif_builder.fps)
+		run_img_sequece(TexRect, img_tipe_label, valid_image, tex, gif_builder.fps)
 		
-func run_img_sequece(TexRect, img_tipe_label, valid_image, tex):
+func run_img_sequece(TexRect, img_tipe_label, valid_image, tex, fps:float):
 	var files:Array = gif_builder.get_image_sequence()
 	img_tipe_label.visible = false
 	TexRect.material = null
@@ -119,7 +120,7 @@ func run_img_sequece(TexRect, img_tipe_label, valid_image, tex):
 		for i in img_sequence_texs:
 			TexRect.texture = i
 			Token.material.set_shader_parameter('tex_frg_2' , i)
-			await get_tree().create_timer(0.03).timeout
+			await get_tree().create_timer(fps/100).timeout
 
 #$"."
 func _Save_Token(file_name, type):
@@ -271,7 +272,7 @@ func load_external_tex(path):
 	elif file_type == "gif":
 		var file_access = FileAccess.open(path, FileAccess.READ)
 		var img_buffer = file_access.get_buffer(file_access.get_length())
-		requests([img_buffer])
+		#requests([img_buffer])
 
 		gif_builder.split_frames(path.replace("\\", "/"), file_name)
 		return [null, false]
